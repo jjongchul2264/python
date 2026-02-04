@@ -596,3 +596,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // 초기 iframe 크기 조정
     resizeContent();
 });
+
+// 웹페이지가 닫힐 때 모든 sessionStorage 클리어
+window.addEventListener("beforeunload", function () {
+    sessionStorage.clear();
+});
