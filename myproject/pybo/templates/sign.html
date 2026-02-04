@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연봉근로계약서 서명</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sign.css') }}" />
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/sign.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-section">
+            <!-- 조회 영역 -->
+            <div class="section">
+                <h2>조회</h2>
+                <div class="guery-group">
+                    <label for="query-name">성명 </label>
+                    <input type="text" id="query-name" name="query-name" class="input-size">
+                    <button id="view-signatures">조회</button>
+                </div>
+            </div>
+
+            <!-- 조회된 데이터 영역 -->
+            <div class="section">
+                <h2>조회 List</h2>
+                <div id="signature-list"></div>
+            </div>
+        </div>
+
+        <!-- 데이터 영역 -->
+        <div class="section2">
+            <form id="contract-form">
+                <div class="button-group">
+                    <button id="viewContractButton">연봉계약서 보기</button>
+                </div>
+                <div class="button-group">
+                    <button type="submit">서명 저장</button>
+                    <button type="button" id="clear-signature">서명 삭제</button>
+                </div>
+                <label for="employee-name">직원 이름:</label>
+                <input type="text" id="employee-name" name="employee-name" required>
+
+                <label for="employee-address">주소:</label>
+                <input type="text" id="employee-address" name="employee-address" required>
+
+                <label for="employee-dob">생년월일:</label>
+                <input type="date" id="employee-dob" name="employee-dob" required>
+
+                <label for="employee-contact">연락처:</label>
+                <input type="tel" id="employee-contact" name="employee-contact" required>
+
+                <label for="signature">서명:</label>
+                <canvas id="signature" width="400" height="200" style="border:1px solid #000;"></canvas>
+
+
+            </form>
+        </div>
+
+    </div>
+</body>
+</html>

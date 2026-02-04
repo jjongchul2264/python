@@ -1,0 +1,217 @@
+{% extends "split_hc_lv_rv.html" %}
+
+{% block title %}Home - My Website{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main2.css') }}" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/main2.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}
+
+{% block left_top_content %}
+<div class="top-section-left">
+    <form id="header-contract-form">
+        <div class="head-container">
+            <h2>● 조회</h2>
+            <div class="button-group">
+                <button id="all-clear">초기화</button>
+                <button id="view-signatures">조회</button>
+            </div>
+        </div>
+        <div class="query-container">
+            <div class="query-field">
+                <label for="query-year" class="label">연도</label>
+                <select id="query-year" name="query-year" class="text-input"></select>
+                <label for="query-regi-no" class="long-label">주민등록번호(뒷7자리)</label>
+                <input type="text" id="query-regi-no" name="query-regi-no" class="text-input">
+            </div>
+            <table class="signature-list" id="dataTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>순번</th>
+                        <th>연도</th>
+                        <th>부서</th>
+                        <th>직위</th>
+                        <th>사원번호</th>
+                        <th>성명</th>
+                        <th>배포</th>
+                        <th>사용자</th>
+                        <th>관리자</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block left_bottom_content %}
+<div class="bottom-section-left">
+    <form id="contract-form">
+        <div class="head-container">
+            <h2>● 세부 내역</h2>
+            <div class="button-group">
+                <button type="button" id="viewContractButton" style="display: none;">연봉계약서 보기</button>
+                <label for="contract-flag">배포</label>
+                <input type="checkbox" id="contract-flag" disabled>
+                <label for="emp-confirm">사용자확정</label>
+                <input type="checkbox" id="emp-confirm" disabled>
+                <label for="manage-confirm">관리자확정</label>
+                <input type="checkbox" id="manage-confirm" disabled>
+            </div>
+        </div>
+        <canvas id="signature" width="300" height="150" style="border:1px solid #000;"></canvas>
+        <div class="button-group">
+            <button type="button" id="clear-signature">서명 지우기</button>
+            <button type="button" id="save-signatures">서명 저장</button>
+            <button id="btn-emp-confirm" data-action="empConfirm">사용자 확정 처리</button>
+            <button id="btn-emp-cancel" data-action="empCancel">사용자 확정 취소</button>
+        </div>
+        <br></br>
+        <div class="data-container">
+            <div class="field">
+                <label for="contract-year" class="label">계약년도</label>
+                <input type="text" id="contract-year" name="contract-year" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="job-from-date" class="label">근무기간(From)</label>
+                <input type="text" id="job-from-date" name="job-from-date" required class="date-input">
+            </div>
+            <div class="field">
+                <label for="job-to-date" class="label">근무기간(To)</label>
+                <input type="text" id="job-to-date" name="job-to-date" required class="date-input">
+            </div>
+            <div class="field">
+                <label for="contract-date" class="label">작성일자</label>
+                <input type="text" id="contract-date" name="contract-date" required class="date-input">
+            </div>
+            <div class="field">
+                <label for="job-type" class="label">근무직종</label>
+                <input type="text" id="job-type" name="job-type" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-dept" class="label">부서</label>
+                <input type="text" id="employee-dept" name="employee-dept" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-code" class="label">사원번호</label>
+                <input type="text" id="employee-code" name="employee-code" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-name" class="label">성명</label>
+                <input type="text" id="employee-name" name="employee-name" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-spot" class="label">직위</label>
+                <input type="text" id="employee-spot" name="employee-spot" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-mobile" class="label">모바일 번호</label>
+                <input type="text" id="employee-mobile" name="employee-mobile" required class="text-input">
+            </div>
+            <div class="field">
+                <label for="employee-birth" class="label">생년월일</label>
+                <input type="text" id="employee-birth" name="employee-birth" required class="date-input">
+            </div>
+            <div class="field">
+                <label for="employee-regi-no" class="label">주민등록번호</label>
+                <input type="text" id="employee-regi-no" name="employee-regi-no" required class="date-input">
+            </div>
+            <div class="field" id="employee-addr-field">
+                <label for="employee-addr" class="label">주소</label>
+                <input type="text" id="employee-addr" class="text-input">
+            </div>
+        </div>
+        <div class="amount-section">
+            <h2>● 올해 연봉</h2>
+            <div class="field" id="amt-all-field">
+                <label for="amt-all" class="label">연봉총액</label>
+                <input type="text" id="amt-all" class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-base" class="label">기본급</label>
+                <input type="text" id="amt-base" name="amt-base" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-overtime" class="label">시간외근로수당</label>
+                <input type="text" id="amt-overtime" name="amt-overtime" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-car" class="label">차량유지비</label>
+                <input type="text" id="amt-car" name="amt-car" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-research" class="label">연구활동비</label>
+                <input type="text" id="amt-research" name="amt-research" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-job" class="label">직무수당</label>
+                <input type="text" id="amt-job" name="amt-job" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="amt-baby" class="label">육아수당</label>
+                <input type="text" id="amt-baby" name="amt-baby" required class="number-input">
+            </div>
+            <div class="field" id="amt-sum-field">
+                <label for="amt-sum" class="label">합계금액</label>
+                <input type="text" id="amt-sum" class="number-input">
+            </div>
+        </div>
+        <div class="amount-section">
+            <h2>● 직전 연봉</h2>
+            <div class="field" id="bf-amt-all-field">
+                <label for="bf-amt-all" class="label">연봉총액</label>
+                <input type="text" id="bf-amt-all" class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-base" class="label">기본급</label>
+                <input type="text" id="bf-amt-base" name="bf-amt-base" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-overtime" class="label">시간외근로수당</label>
+                <input type="text" id="bf-amt-overtime" name="bf-amt-overtime" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-car" class="label">차량유지비</label>
+                <input type="text" id="bf-amt-car" name="bf-amt-car" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-research" class="label">연구활동비</label>
+                <input type="text" id="bf-amt-research" name="bf-amt-research" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-job" class="label">직무수당</label>
+                <input type="text" id="bf-amt-job" name="bf-amt-job" required class="number-input">
+            </div>
+            <div class="field">
+                <label for="bf-amt-baby" class="label">육아수당</label>
+                <input type="text" id="bf-amt-baby" name="bf-amt-baby" required class="number-input">
+            </div>
+            <div class="field" id="bf-amt-sum-field">
+                <label for="bf-amt-sum" class="label">합계금액</label>
+                <input type="text" id="bf-amt-sum" class="number-input">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block right_top_content %}
+<div class="right-section">
+    <div class="right-pane">
+        <iframe id="contract-iframe" style="width: 100%; height: 100%; border: none;"></iframe>
+    </div>
+</div>
+{% endblock %}
+
+{% block right_bottom_content %}
+{% endblock %}

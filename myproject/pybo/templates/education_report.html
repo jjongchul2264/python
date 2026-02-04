@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>교육 수료 명단</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/education_report.css') }}" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/education_report.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="top_section">
+            <div class="group_box">
+                <div class="title_row">
+                    <h2>● 조회</h2>
+                    <button type="button" id="btn_query" data-action="dataquery">조회</button>
+                    <button type="button" id="btn_print" data-action="datanew">인쇄</button>
+                    <button type="button" id="btn_pdf" data-action="datasave" hidden>PDF 저장</button>
+                    <button type="button" id="btn_excel" data-action="datadelete" hidden>엑셀 내보내기</button>
+                </div>
+                <div class="query_field">
+                    <label for="from_date" class="label">등록일자</label>
+                    <input type="text" id="from_date" name="from_date" required class="date-input">
+                    <h2>&nbsp;~&nbsp;</h2>
+                    <input type="text" id="to_date" name="to_date" required class="date-input">
+                </div>
+            </div>
+        </div>
+        <div id="print-area" class="print-only">
+            <div class="meta">
+                <h2 class="rprt_title">교육 수료 명단</h2>
+                교육번호: <span id="rpt_edu_no"></span> |
+                교육명: <span id="rpt_edu_name"></span> |
+                교육일자: <span id="rpt_edu_date"></span>
+            </div>
+            <div class="table_container2">
+                <table class="rpt_edu_gran_list" id="rpt_grandataTable">
+                    <thead class="rpt_th">
+                        <tr class="rpt_tr">
+                            <th class="rpt_header">순번</th><th>이름</th><th>서명</th>
+                            <th class="rpt_header">순번</th><th>이름</th><th>서명</th>
+                            <th class="rpt_header">순번</th><th>이름</th><th>서명</th>
+                        </tr>
+                    </thead>
+                    <tbody id="report_tbody" class="rpt_tb">
+                      <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="bottom_section">
+            <div class="bottom_section_left">
+                <div class="group_box">
+                    <div class="title_row">
+                        <h2>● 교육 List</h2>
+                    </div>
+                    <div class="table_container">
+                        <table class="edu_list" id="edudataTable">
+                            <thead>
+                                <tr>
+                                    <th>교육번호</th>
+                                    <th>등록일자</th>
+                                    <th>교육명</th>
+                                    <th>교육시작일자</th>
+                                    <th>교육종료일자</th>
+                                    <th>첨부파일명</th>
+                                    <th>메일발송여부</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+               </div>
+            </div>
+            <div class="bottom_section_right">
+                <div class="group_box">
+                    <h2>● 교육 수료 명단</h2>
+                    <div class="meta">
+                        교육명: <span id="edu_name"></span> |
+                        교육일자: <span id="edu_date"></span> |
+                        교육번호: <span id="edu_no"></span>
+                    </div>
+                    <div class="table_container">
+                        <table class="edu_gran_list" id="grandataTable">
+                            <thead>
+                                <tr>
+                                    <th>순번</th><th>이름</th><th>서명</th>
+                                    <th>순번</th><th>이름</th><th>서명</th>
+                                    <th>순번</th><th>이름</th><th>서명</th>
+                                </tr>
+                            </thead>
+                            <tbody id="grand_tbody">
+                              <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

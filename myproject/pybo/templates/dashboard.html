@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intellics Dashboard</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .iframe-container {
+            width: 100%;
+            max-width: 2000px;
+            margin: 10px 0;
+        }
+        iframe {
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+    </style>
+    <script>
+        function resizeIframe(iframe) {
+            iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        }
+
+        function resizeAllIframes() {
+            var iframes = document.querySelectorAll('iframe');
+            iframes.forEach(function(iframe) {
+                resizeIframe(iframe);
+            });
+        }
+
+        window.onload = function() {
+            resizeAllIframes();
+        };
+
+        window.onresize = function() {
+            resizeAllIframes();
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="iframe-container">
+            <iframe src="/serverstatus" scrolling="no" frameborder="0"></iframe>
+        </div>
+        <div class="iframe-container">
+            <iframe src="/webstatus" scrolling="no" frameborder="0"></iframe>
+        </div>
+    </div>
+</body>
+</html>

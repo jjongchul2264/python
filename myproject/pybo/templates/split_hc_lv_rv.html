@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/split_hc_lv_rv.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/split_hc_lv_rv.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.0.5/split.min.js"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div id="split-container">
+        <div id="left-pane">
+            <div id="left-top-pane">
+                {% block left_top_content %}{% endblock %}
+            </div>
+            <div id="left-bottom-pane">
+                {% block left_bottom_content %}{% endblock %}
+            </div>
+        </div>
+        <div id="right-pane">
+            <div id="right-top-pane">
+                 {% block right_top_content %}{% endblock %}
+            </div>
+            <div id="right-bottom-pane">
+                {% block right_bottom_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    <button id="toggle-left-vertical-gutter">Toggle Left Vertical Gutter</button>
+    <button id="toggle-right-vertical-gutter">Toggle Right Vertical Gutter</button>
+    <button id="toggle-horizontal-gutter">Toggle Horizontal Vertical Gutter</button>
+    {% block script %}{% endblock %}
+</body>
+</html>
+
+
+
+

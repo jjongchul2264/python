@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출장, 외근, 휴가 현황</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/calendar.js') }}"></script>
+    <script src="{{ url_for('static',filename='js/checkInputs.js') }}"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/locale/ko.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.34/moment-timezone-with-data.min.js"></script>
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css" rel="stylesheet" type="text/css" >
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+</head>
+<body>
+    <div class="container2">
+        <h2 class="title">출장, 외근, 휴가 현황</h2>
+        <div id="calendar"></div>
+
+        <div id="events-grid">
+            <h3>오늘의 출장, 외근, 휴가 현황</h3>
+                <div class="filter-container">
+                    <label for="deptFilter">부서</label>
+                    <input type="text" id="deptFilter" class="filter-input" placeholder="부서를 입력하세요">
+                    <label for="empNameFilter">사원명</label>
+                    <input type="text" id="empNameFilter" class="filter-input" placeholder="사원명을 입력하세요">
+                    <input id="SearchEventModal" type="button" value="조회" class="hidden-button">
+                </div>
+            <table id="events-table">
+                <thead>
+                    <tr>
+                        <th>부서</th>
+                        <th>성명</th>
+                        <th>유형</th>
+                        <th>사유</th>
+                        <th>시작일시</th>
+                        <th>종료일시</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Event data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 모달 -->
+        <div id="eventModal">
+            <label>성명</label>
+            <input type="text" id="user"><br>
+            <label>사유</label>
+            <textarea id="description" rows="4" cols="25"></textarea><br>
+            <label>시작일시</label>
+            <input type="datetime-local" id="starttime" step="600"><br>
+            <label>종료일시</label>
+            <input type="datetime-local" id="endtime" step="600"><br>
+            <label>색상선택</label>
+            <select id="color">
+                <option value="#3788d8">파란색</option>
+                <option value="#3a87ad">연한 파란색</option>
+                <option value="#5484ed">보라색</option>
+                <option value="#a4bdfc">연한 보라색</option>
+                <option value="#ff887c">분홍색</option>
+                <option value="#fbd75b">노란색</option>
+                <option value="#ffb878">주황색</option>
+                <option value="#46d6db">청록색</option>
+                <option value="#7ae7bf">초록색</option>
+                <option value="#51b749">어두운 초록색</option>
+            </select>
+            <div class="buttons">
+                <input id="saveEvent" type="button" value="저장" onclick="checkInputs2()" />
+                <input id="closeEventModal" type="button" value="닫기" />
+            </div>
+        </div>
+
+        <div id="viewEventModal" class="modal">
+          <div class="modal-content">
+            <span class="close" id="closeViewEventModal">&times;</span>
+            <p id="view-modal-startdatetime"></p>
+            <p id="view-modal-enddatetime"></p>
+            <p id="view-modal-user"></p>
+            <p id="view-modal-description"></p>
+            <input type="hidden" id="view-modal-event-id">
+          </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

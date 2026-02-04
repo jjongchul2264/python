@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MAC Address 사용 작성</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}" />
+    <script src="{{ url_for('static',filename='js/checkInputs.js') }}"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>MAC Address 사용 작성</h1>
+        <div class="form-group">
+            <label for="user_name">작성자</label>
+            <input id="user_name" name="user_name" required="required" type="text" />
+        </div>
+        <div class="form-group">
+            <label for="mac_start">MAC 시작주소</label>
+            <input id="mac_start" name="mac_start" required="required" type="text" disabled/>
+        </div>
+        <div class="form-group">
+            <label for="mac_start">(A04466 : Intellics 고유값)</label>
+        </div>
+        <div class="form-group">
+            <label for="create_cnt">사용 갯수</label>
+            <input id="create_cnt" name="create_cnt" required="required" type="number" />
+        </div>
+        <div class="form-group">
+            <label for="create_comment">이용 목적</label>
+            <input id="create_comment" name="create_comment" required="required" size="25" type="text" />
+        </div>
+        <div class="buttons">
+            <input id="view_list" type="button" value="MAC Address 리스트보기" onclick="checkInputs()" />
+            <input id="view_history" type="button" value="기존 이력 보기" onclick="window.location.href='/history'" />
+        </div>
+        <div id="output" class="output" style="display: none;">
+            <p><strong>입력된 값:</strong></p>
+            <ul id="output_list"></ul>
+        </div>
+    </div>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            fetchMacDetails();
+        });
+
+        function fetchMacDetails() {
+            fetch('/get_mac_details')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('mac_start').value = data.CREATE_MAC;
+                    document.getElementById('create_cnt').value = data.CREATE_CNT;
+                })
+                .catch(error => console.log('Error:', error));
+        }
+    </script>
+</body>
+</html>

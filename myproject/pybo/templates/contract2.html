@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연봉근로계약서</title>
+    <!-- CSS 파일 링크 -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contract.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/contract2.js') }}"></script>
+     <!-- html2canvas와 jsPDF 라이브러리 포함 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+</head>
+<body id="tinymce" class="mce-content-body" data-id="content" contenteditable="true" spellcheck="false">
+    <!-- PDF 저장 버튼 -->
+    <div class="button-group">
+        <button class="button" id="save_pdf_button">PDF 저장</button>
+        <button class="button" id="print_button">프린트</button>
+    </div>
+    <p class="title"><strong>연봉근로계약서</strong></p>
+    <p><strong><br data-mce-bogus="1"></strong></p>
+    <table>
+        <tbody>
+            <tr>
+                <td rowspan="3" class="highlighted_grey">사업주</td>
+                <td class="highlighted_grey">성명</td>
+                <td>반천식</td>
+                <td class="highlighted_grey">사업의 종류</td>
+                <td>제조업</td>
+            </tr>
+            <tr>
+                <td class="highlighted_grey">사업체명</td>
+                <td colspan="4">인텔릭스(주)</td>
+            </tr>
+            <tr>
+                <td class="highlighted_grey">소재지</td>
+                <td colspan="4">경기도 성남시 분당구 판교로 700 분당테크노파크 E동 801호</td>
+            </tr>
+            <tr>
+                <td rowspan="3" class="highlighted_grey">근로자</td>
+                <td class="highlighted_grey">성명</td>
+                <td class="highlighted_yellow"><span id="val1" class="text_black">val1</span></td>
+                <td class="highlighted_grey">직위</td>
+                <td><span id="val2" class="text_black">val2</span></td>
+            </tr>
+            <tr>
+                <td class="highlighted_grey">주소</td>
+                <td colspan="4" class="highlighted_yellow"><span id="val3" class="text_black">val3</span></td>
+            </tr>
+            <tr>
+                <td class="highlighted_grey">생년월일</td>
+                <td class="highlighted_yellow"><span id="val4" class="text_black">val4</span></td>
+                <td class="highlighted_grey">연락처</td>
+                <td class="highlighted_yellow"><span id="val5" class="text_black">val5</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><br data-mce-bogus="1"></p>
+    <p>양 당사자는 노동관계법령과 본 근로계약 사항을 성실하게 이행할 것을 서약하고 다음과 같이 근로계약을 체결한다.</p>
+    <p><br data-mce-bogus="1"></p>
+    <p><strong>제 1 조 [계약기간]<br></strong>① 연봉근로계약기간은 <span id="val6" class="text_black highlighted_yellow">val6</span> 부터 <span id="val7" class="text_black highlighted_yellow">val7</span> 로 한다.<br>② 새로운 근로계약이 체결되지 아니한 경우에는 계속 근로계약이 성립된다.<strong></strong></p>
+    <p><strong>제 2 조 [근로시간]<br></strong>① "근로자"의 근로시간 및 휴게시간은 다음과 같다.<br>    <span id="valgunmoo" class="text_black">valgunmoo</span><br>② "근로자"는 월 ~ 금요일까지 1일 8시간 근무, 1주 40시간제를 근로함을 원칙으로 한다.<br>③ 토요일은 무급휴일로 한다.<br>④ 전 각항의 근로시간 및 근무일은 "사업주"의 업무형편에 따라 변경될 수 있다.</p>
+    <p><strong>제 3 조 [근무직종]<br></strong><span>근무직종은 "<span id="val8">val8</span>"업무로 하되 "사업주"가 필요하다고 판단되는 업무로 지정, 변경할 수 있다.</span></p>
+    <p><strong>제 4 조 [연봉의 지급방법 및 지급기일]</strong><strong><br></strong></p>
+        <table class="no_border">
+        <tbody>
+            <td>
+                <p>연봉의 지급방식은 연봉총액을 13등분하여 13분의 1에 해당하는 금액을 매 귀속월 20일<br>(공휴일인 경우 전일)에 "근로자"가 지정한 금융계좌로 이체 지급하며, 나머지 1/13은 상여금으로 <br>지급하되 3차례(설 및 추석 각 30%, 연말 40%)로 분할하여 해당월 급여지급일에 지급한다. <br><span>다만 상여금은 1년간 8할 이상 출근하고 지급일 현재 재직중인 근로자에 한하여 지급한다.</span></p>
+            </td>
+        </tbody>
+    </table>
+    <p><strong>제 5 조 [연봉액]<br></strong>① 연봉총액은 제 2 항과 같이 구성하며, 포괄연봉으로 산정하여 매 1년 단위로 결정한다.<br>② "근로자"의 연봉총액은 <u><span id="amt0" class="text_black highlighted_text right_align number_format">amt0</span></u>    원으로 하며, 월별 상세내역은 다음과 같다.<strong><br></strong></p>
+    <table>
+        <tbody>
+            <tr>
+                <td class="highlighted_grey">구성항목</td>
+                <td class="highlighted_grey">지급금액</td>
+                <td class="highlighted_grey">계산방법</td>
+            </tr>
+            <tr>
+                <td>기본급</td>
+                <td id="amt1" class="colored_colum right_align number_format, text_black" ><span>amt1</span></td>
+                <td>1일 8시간, 1주 40시간, 월 209시간 기준</td>
+            </tr>
+            <tr>
+                <td>시간외근로수당</td>
+                <td id="amt2" class="colored_colum right_align number_format, text_black" ><span>amt2</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>차량유지비</td>
+                <td id="amt3" class="colored_colum right_align number_format, text_black" ><span>amt3</span></td>
+                <td>차량소지자 중 업무목적 활용자</td>
+            </tr>
+            <tr>
+                <td><span id="val01" class="text_black">val01</span></td>
+                <td id="amt4" class="colored_colum right_align number_format, text_black" ><span>amt4</span></td>
+                <td><span id="val02" class="text_black">val02</span></td>
+            </tr>
+            <tr>
+                <td>육아수당</td>
+                <td id="amt5" class="colored_colum right_align number_format, text_black" ><span>amt5</span></td>
+                <td>초등학교 취학전 자녀가 있는 근로자에 한정함.</td>
+            </tr>
+            <tr>
+                <td>생산수당</td>
+                <td id="amt6" class="colored_colum right_align number_format, text_black" ><span>amt6</span></td>
+                <td>생산 근무수당</td>
+            </tr>
+            <tr>
+                <td>합계(월지급액)</td>
+                <td id="amt7" class="colored_colum right_align number_format, text_black" ><span>amt7</span></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="3"><span>※ 1년간 상여금은 <u><span id="amt8" class="right_align number_format">amt7</span></u>  원으로 하며, 3차례(설 및 추석 각 30%, 연말 40%)로 분할하여 지급하되, 지급일 기준 이전 1년간 8할 이상 출근하고, 지급일 현재 재직중인 근로자에 한하여 지급한다.</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <p>③ 월 지급액은 연봉의 13등분하여 기본급으로 지급하는 임금이다.<br>④ 기본급은 월통상 임금산전 기준시간 209HR으로 하여 시급이 산출된다.<br>⑤ 잔업시 근로기준법에 준하여 시간외수당을 별도 지급한다.<br>⑥ 계약 기간 중 결근, 휴직, 정직 등 근로자의 귀책사유로 인하여 근로를 제공하지 못할 경우 그 기간만큼 연봉을 지급하지 아니한다.</p>
+    <p><strong>제 6 조 [시용.수습기간]<br></strong>입사 후 최초 2개월간을 수습시용기간으로 설정하고 업무능력, 태도 등을 평가하여 계속 근로가 부적당하다고 판단되는 경우<br>계약을 해지할 수 있다.</p>
+    <p><strong>제 7 조 [퇴직금]<br></strong>"근로자"는 근속연수 1년 이상 계속 근무한 경우 근무연수에 따라 퇴직금을 지급한다.</p>
+    <p><strong>제 8 조 [근태사항, 휴일 및 휴가, 중도퇴사자]<br></strong>① 지각, 조퇴, 결근과 징계사항은 별도의 규정에 따른다.<br>② 휴일 및 휴가(연차유급휴가)는 "사업주"의 취업규칙 및 근로기준법에 따른다.<br>③ 중도퇴사자는 중도퇴사시 최소한 30일 이전에 사전통보하고, 퇴직승인을 득한 후 퇴직처리하며 그렇지 않은 경우에는 <br>무단결근으로 처리한다.</p>
+    <p><strong>제 9 조 [비밀유지의무]<br></strong>"근로자"는 연봉계약 내용에 대하여 "근로자"의 동의 없이 제3자에게 누설하여서는 아니 된다. 만일 위반 시 <br>규정에 따른 징계처벌도 감수한다.</p>
+    <p><strong>제 10 조 [기타]<br></strong>본 계약서에 명시되지 아니한 사항은 회사규정 및 노동관계법령(근로기준법)에 의한다.</p>
+    <p><br data-mce-bogus="1"></p>
+    <br></br>
+    <p style="text-align: center;"><span id="val9" class="text_black">val9</span></p>
+    <p style="text-align: center;"><br data-mce-bogus="1"></p>
+    <p><strong>"사업주"</strong></p>
+        <table class="no_border2">
+            <tbody>
+                <tr>
+                    <td class="small_size">회사명 :</td>
+                    <td>인텔릭스(주)</td>
+                </tr>
+                <tr>
+                    <td>주소 : </td>
+                    <td>경기도 성남시 분당구 판교로 700 분당테크노파크 E동 801호</td>
+                </tr>
+                <tr>
+                    <td>대표자 : </td>
+                    <div class="signature-container">
+                        <img src="https://i.ibb.co/Ht90zp9/removebg-preview.png" alt="인감" class="signature-image">
+                        <td>반천식 (서명 또는 인)</td>
+                     </div>
+                </tr>
+            </tbody>
+        </table>
+    <p><br data-mce-bogus="1"></p>
+    <p><strong>본인은 본 근로계약 및 관련된 규정에 대하여 확인하였습니다.</strong></p>
+    <p><strong><br data-mce-bogus="1"></strong></p>
+    <p><strong>"근로자"</strong></p>
+        <table class="no_border2">
+            <tbody>
+                <tr>
+                    <td class="small_size">생년월일 :</td>
+                    <td><span id="val12" class="text_black">val12</span></td>
+                </tr>
+                <tr>
+                    <td>주소 : </td>
+                    <td><span id="val13" class="text_black">val13</span></td>
+                </tr>
+                <tr>
+                    <td>성명 : </td>
+                        <div class="signature-container">
+                            <img id="sign-image" src="" alt="서명 이미지" class="sign-image">
+                            <td><span id="val14" class="text_black">val14</span> (서명 또는 인)</td>
+                        </div>
+                </tr>
+            </tbody>
+        </table>
+    <p><br data-mce-bogus="1"></p>
+</body>
+</html>

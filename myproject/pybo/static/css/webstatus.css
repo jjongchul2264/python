@@ -1,0 +1,72 @@
+/* 기본 폰트 사이즈 설정 */
+body {
+    font-size: 16px;
+}
+
+/* 작은 화면 (모바일) 폰트 사이즈 설정 */
+@media only screen and (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+/* 중간 크기 화면 (태블릿) 폰트 사이즈 설정 */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+/* 큰 화면 (데스크탑) 폰트 사이즈 설정 */
+@media only screen and (min-width: 1025px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    word-wrap: break-word;
+}
+th:first-child, td:first-child {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+th {
+    background-color: transparent; /* 배경색 제거 */
+    font-weight: normal; /* Bold 해제 */
+}
+.up {
+    color: green;
+}
+.down {
+    color: red;
+    background-color: yellow;
+}
+.failed {
+    color: orange;
+}
+.status-light {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.status-up {
+    background-color: green;
+}
+.status-down {
+    background-color: red;
+}
+.bold-status {
+    font-weight: bold;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>발주관리시트</title>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-enterprise/dist/ag-grid-enterprise.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.23.0/date-fns.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/polist.css') }}">
+    <script src="{{ url_for('static', filename='js/polist.js') }}"></script>
+</head>
+<body>
+    <div id="filterContainer">
+        <div class="filter-group">
+            <label for="startDate">시작 날짜</label>
+            <input type="date" id="startDate" name="startDate">
+            <label for="endDate">종료 날짜</label>
+            <input type="date" id="endDate" name="endDate">
+        </div>
+
+        <div class="filter-group">
+            <label for="projectName">사업명</label>
+            <input type="text" id="projectName" name="projectName">
+        </div>
+
+        <div class="filter-group">
+            <label for="poEmp">구매담당자</label>
+            <input type="text" id="poEmp" name="poEmp">
+            <label for="reqEmp">요청자</label>
+            <input type="text" id="reqEmp" name="reqEmp">
+        </div>
+
+        <div class="filter-group">
+            <label>ERP 등록 여부</label>
+            <input type="radio" id="all" name="erpRegist" value="%" checked>
+            <label for="all">전체</label>
+            <input type="radio" id="registered" name="erpRegist" value="Y">
+            <label for="registered">등록</label>
+            <input type="radio" id="notRegistered" name="erpRegist" value="N">
+            <label for="notRegistered">미등록</label>
+        </div>
+    </div>
+
+    <div id="buttonContainer">
+        <button id="resetGridButton">신규</button>
+        <button id="loadDataButton">조회</button>
+        <button id="addRowButton">행추가</button>
+        <button id="deleteRowButton" style="display: none;">행삭제</button>
+        <button id="saveDataButton">저장</button>
+    </div>
+
+    <div id="gridContainer">
+        <div id="myGrid" class="ag-theme-alpine"></div>
+    </div>
+</body>
+</html>

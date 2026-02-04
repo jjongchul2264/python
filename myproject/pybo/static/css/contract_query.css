@@ -1,0 +1,258 @@
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-y: hidden;
+}
+
+.container {
+    background-color: white;
+    padding: 10px;
+    width: 100%;
+    /* 뷰포트 너비의 100%로 설정 */
+    max-width: 100%;
+    /* 최대 너비를 뷰포트 너비의 100%로 설정 */
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 13px;
+    /* 폰트 크기 설정 */
+    margin-top: 0;
+    margin-left: 0;
+    /* 상단 마진 제거 */
+    padding-top: 0;
+    /* 상단 패딩 제거 */
+    overflow-y: hidden;
+}
+
+.group-box {
+  width: 100%;               /* 너비를 전체로 설정 */
+  box-sizing: border-box;    /* 패딩 포함한 너비 계산 */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.top-section {
+    flex: 1;
+    /* 남은 공간을 차지 */
+    width: 100%;
+    /* 너비를 100%로 설정 */
+    max-width: 100%;
+    justify-content: center; /* 수직 가운데 정렬 */
+    /* 상단 섹션 높이를 제외한 최대 높이 */
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* 모서리를 둥글게 설정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* 그림자 추가 */
+    overflow: hidden;
+    /* 섹션 내 스크롤바 숨김 */
+}
+
+.bottom-section
+{
+    flex: 1;
+    overflow-y: auto;   /* 스크롤 허용 */
+    max-height: 600px;  /* 원하는 높이 */
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* 상단 섹션 높이를 제외한 최대 높이 */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* 모서리를 둥글게 설정 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* 그림자 추가 */
+
+}
+
+
+.head-container,
+.data-container,
+.amount-section,
+.one-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    /* 각 필드 간의 간격 */
+    margin-bottom: 10px;
+}
+
+.radio-field {
+    display: flex;
+    align-items: center;
+    /* 라벨과 입력 필드를 같은 선상에 정렬 */
+    flex: 1 1 100%;
+    /* 각 필드의 너비 설정 */
+    min-width: 100px;
+    /* 필드의 최소 너비 설정 */
+    margin-left: 0;
+    /* 라벨과 필드의 동일한 시작선 */
+    gap: 10px;
+
+}
+
+.query-container {
+    display: flex;
+    flex-direction: column; /* 필드 그룹을 세로로 정렬 */
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.query-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 100%; /* 한 줄 전체 너비 사용 */
+    min-width: 100px;
+}
+
+
+.field {
+    display: flex;
+    align-items: center;
+    /* 라벨과 입력 필드를 같은 선상에 정렬 */
+    flex: 1 1 calc(33.33% - 20px);
+    /* 각 필드의 너비 설정 */
+    min-width: 100px;
+    /* 필드의 최소 너비 설정 */
+    margin-left: 0;
+    /* 라벨과 필드의 동일한 시작선 */
+}
+
+.field:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+
+.one-label,
+.label {
+    margin-right: 10px;
+    /* 라벨과 입력 필드 간의 간격 */
+    width: 110px;
+    /* 라벨의 고정 너비 */
+    text-align: right;
+}
+
+.number-input {
+    text-align: right;
+    /* 텍스트 우측 정렬 */
+    width: 110px;
+    /* 입력 필드의 고정 너비 */
+}
+
+.date-input,
+.text-input {
+    text-align: left;
+    width: 110px;
+    /* 입력 필드의 고정 너비 */
+}
+
+/* 특정 필드의 입력 요소에 대한 스타일 */
+#employee-addr {
+    flex-grow: 1;
+    /* 남은 공간을 차지하도록 설정 */
+    min-width: 100px;
+    /* 최소 너비 설정 */
+    width: auto;
+    /* 너비를 자동으로 설정 */
+}
+
+/* 특정 필드의 부모 요소에 대한 스타일 */
+#amt-all-field,
+#amt-sum-field,
+#employee-addr-field {
+    flex: 1 1 100%;
+    /* 부모 요소의 너비를 100%로 설정 */
+    min-width: 100px;
+    /* 부모 요소의 최소 너비 설정 */
+}
+
+
+.button-group {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 10px;
+}
+
+.input-size {
+    width: 100px;
+    height: 22px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 120px;
+    height: 22px;
+    margin-right: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+    border: 1px solid #ddd;
+    border-top: none;
+    padding: 8px;
+    background-color: #6C757D;
+    /* 중성 계열 배경색 (어두운 회색) */
+    color: white;
+    /* 하얀색 텍스트 */
+    text-align: center !important;
+    /* 중요! 텍스트 가운데 정렬 */
+    position: sticky;
+    /* 헤더 고정 */
+    top: 0;
+    /* 스크롤 시 상단에 고정 */
+    z-index: 1;
+    /* 다른 요소보다 위에 위치 */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+tr.selected {
+    background-color: #D1E7DD;
+    /* 부드러운 파스텔 색상 */
+    color: #0F5132;
+    /* 텍스트 색상 */
+}
+
+/* 반응형 레이아웃 설정 */
+@media (max-width: 768px) {
+    .top-section, .bottom-section {
+        flex-direction: column;
+    }
+}
+

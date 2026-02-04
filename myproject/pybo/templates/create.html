@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MAC Address 사용 확인</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .home-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+        .title {
+            text-align: center;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+        .form-group2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 200px;
+            height: 30px;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+        .buttons2 {
+            display: flex;
+            justify-content: flex-end; /* 검색버튼 오른쪽 정렬 */
+            align-items: center;
+            margin-bottom: 20px; /* 검색버튼 아래 여백 추가 */
+        }
+        .buttons2 input {
+            padding: 10px 20px; /* 검색버튼 크기 조정 */
+            font-size: 16px; /* 검색버튼 텍스트 크기 조정 */
+        }
+        .buttons2 input[disabled] {
+            background-color: #cccccc; /* 비활성화된 버튼의 배경색을 회색으로 변경 */
+            color: #666666; /* 비활성화된 버튼의 텍스트 색상 변경 */
+        }
+        .results-container {
+            margin-top: 20px;
+            max-height: 500px; /* 원하는 최대 높이 설정 */
+            overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: black;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <input id="home" type="button" value="홈으로" onclick="window.location.href='/'" class="home-button"/>
+        </div>
+        <h2 class="title">MAC Address 사용 확인</h2>
+
+        <div class="buttons2">
+            <input id="list_save" type="button" value="저장" />
+        </div>
+
+        <div id="results" class="results-container"></div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                fetchData();
+            });
+
+            function fetchData() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const userName = urlParams.get('user_name');
+                const macStart = urlParams.get('mac_start');
+                const createCount = urlParams.get('create_cnt');
+                const createComment = urlParams.get('create_comment');
+
+                console.log('user_name:', userName);
+                console.log('mac_start:', macStart);
+                console.log('create_cnt:', createCount);
+                console.log('create_comment:', createComment);
+
+                if (!userName || !macStart || !createCount || !createComment) {
+                    alert("필요한 파라미터가 누락되었습니다.");
+                    return;
+                }
+
+                fetch('/set_mac_details', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        create_cnt: createCount,
+                        mac_start: macStart,
+                        user_name: userName,
+                        create_comment: createComment
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(error => {
+                            throw new Error(error.error || 'Unknown error');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayData(data);
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                    alert('MAC 주소 생성 중 오류가 발생했습니다: ' + error.message);
+                });
+            }
+
+            function displayData(data) {
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = '';  // 결과 초기화
+                if (data.length === 0) {
+                    resultsDiv.innerHTML = '<p>No records found</p>';
+                    return;
+                }
+
+                const table = document.createElement('table');
+                const headerRow = document.createElement('tr');
+                ['순번', '사용자', 'MAC Address', '이용 목적', '생성일시'].forEach(headerText => {
+                    const header = document.createElement('th');
+                    header.innerText = headerText;
+                    headerRow.appendChild(header);
+                });
+                table.appendChild(headerRow);
+
+                data.forEach(row => {
+                    const dataRow = document.createElement('tr');
+                    ['rownum', 'create_user', 'create_mac', 'create_item', 'create_date'].forEach(key => {
+                        const cell = document.createElement('td');
+                        cell.innerText = row[key];
+                        dataRow.appendChild(cell);
+                    });
+                    table.appendChild(dataRow);
+                });
+
+                resultsDiv.appendChild(table);
+            }
+
+            function saveDataToDatabase() {
+                const tableRows = document.querySelectorAll('#results tr');
+                const data = [];
+
+                // 첫 번째 행은 헤더이므로 제외합니다.
+                for (let i = 1; i < tableRows.length; i++) {
+                    const cells = tableRows[i].getElementsByTagName('td');
+                    const macAddress = cells[2].innerText.replace('A04466 ', '');  // 앞부분 'A04466 ' 제거
+                    const rowData = {
+                        create_mac: macAddress,
+                        create_user: cells[1].innerText,
+                        create_item: cells[3].innerText,
+                        create_date: cells[4].innerText
+                    };
+                    data.push(rowData);
+                }
+
+                console.log('Data to save:', data);
+
+                const saveButton = document.getElementById('list_save');
+                saveButton.disabled = true;
+
+                fetch('/mac_insert', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Data saved:', data);
+                    alert('데이터가 성공적으로 저장되었습니다.');
+                })
+                .catch(error => {
+                    console.error('Error saving data:', error);
+                    alert('데이터 저장 중 오류가 발생했습니다: ' + error.message);
+                    saveButton.disabled = false; // 오류 발생 시 버튼 다시 활성화
+                });
+            }
+
+            document.getElementById('list_save').addEventListener('click', saveDataToDatabase);
+        </script>
+    </div>
+</body>
+</html>

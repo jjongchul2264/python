@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연봉근로계약서 임직원 서명</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contract_sign.css') }}" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/contract_sign.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-section">
+            <div class="top-section-top">
+                <div class="head-container">
+                    <div class="group-box">
+                        <h2>● 조회</h2>
+                        <div class="button-group">
+                            <button id="all-clear">초기화</button>
+                            <button id="view-signatures">조회</button>
+                        </div>
+                        <div class="query-container">
+                            <div class="query-field">
+                                <label for="query-year" class="label">연도</label>
+                                <select id="query-year" name="query-year" class="text-input"></select>
+                                <label for="query-regi-no" class="long-label">주민등록번호(-제외)</label>
+                                <input type="password" id="query-regi-no" name="query-regi-no" class="text-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group-box">
+                        <h2>● 세부 내역</h2>
+                        <canvas id="signature" width="300" height="150" style="border:1px solid #000;"></canvas>
+                        <div class="data-container">
+                            <label for="contract-flag">배포</label>
+                            <input type="checkbox" id="contract-flag" disabled>
+                            <label for="emp-confirm">사용자확정</label>
+                            <input type="checkbox" id="emp-confirm" disabled>
+                            <label for="manage-confirm">관리자확정</label>
+                            <input type="checkbox" id="manage-confirm" disabled>
+                            <label for="work-start-flag" style="display: none;">
+                                <input type="text" id="work-start-flag" name="work-start-flag" required class="text-input">
+                            </label>
+                            <label for="dept-flag" style="display: none;">
+                                <input type="text" id="dept-flag" name="dept-flag" required class="text-input">
+                            </label>
+                        </div>
+                        <div class="button-group">
+                            <button type="button" id="clear-signature" disabled>서명 지우기</button>
+                            <button type="button" id="save-signatures" disabled>서명 저장</button>
+                            <button type="button" id="btn-emp-confirm" data-action="empConfirm" disabled>사용자 확정 처리</button>
+                            <button type="button" id="btn-emp-cancel" data-action="empCancel" disabled>사용자 확정 취소</button>
+                        </div>
+                        <div class="query-container">
+                            <table class="signature-list" id="dataTable" style="display: none;">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>순번</th>
+                                        <th>연도</th>
+                                        <th>부서</th>
+                                        <th>직위</th>
+                                        <th>사원번호</th>
+                                        <th>성명</th>
+                                        <th>배포</th>
+                                        <th>사용자</th>
+                                        <th>관리자</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-section">
+            <div class="iframe-pane" style="width: 1000px; margin: 0 auto;">
+                <iframe id="contract-iframe" style="width: 1000px; height: 100%; border: none;"></iframe>
+            </div>
+            <div class="data-container">
+                <div class="field">
+                    <label for="contract-year" class="label" style="display: none;">계약년도</label>
+                    <input type="text" id="contract-year" name="contract-year" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="job-from-date" class="label" style="display: none;">근무기간(From)</label>
+                    <input type="text" id="job-from-date" name="job-from-date" required class="date-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="job-to-date" class="label" style="display: none;">근무기간(To)</label>
+                    <input type="text" id="job-to-date" name="job-to-date" required class="date-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="contract-date" class="label" style="display: none;">작성일자</label>
+                    <input type="text" id="contract-date" name="contract-date" required class="date-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="job-type" class="label" style="display: none;">근무직종</label>
+                    <input type="text" id="job-type" name="job-type" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-dept" class="label" style="display: none;">부서</label>
+                    <input type="text" id="employee-dept" name="employee-dept" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-code" class="label" style="display: none;">사원번호</label>
+                    <input type="text" id="employee-code" name="employee-code" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-name" class="label" style="display: none;">성명</label>
+                    <input type="text" id="employee-name" name="employee-name" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-spot" class="label" style="display: none;">직위</label>
+                    <input type="text" id="employee-spot" name="employee-spot" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-mobile" class="label" style="display: none;">모바일 번호</label>
+                    <input type="text" id="employee-mobile" name="employee-mobile" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-birth" class="label" style="display: none;">생년월일</label>
+                    <input type="text" id="employee-birth" name="employee-birth" required class="date-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="employee-regi-no" class="label" style="display: none;">주민등록번호</label>
+                    <input type="text" id="employee-regi-no" name="employee-regi-no" required class="date-input" style="display: none;">
+                </div>
+                <div class="field" id="employee-addr-field">
+                    <label for="employee-addr" class="label" style="display: none;">주소</label>
+                    <input type="text" id="employee-addr" class="text-input" style="display: none;">
+                </div>
+            </div>
+            <div class="amount-section">
+                <div class="field" id="amt-all-field"> <!--중복에러로 표시되는데 실제 동작에 영향은 없다.-->
+                    <label for="amt-all" class="label" style="display: none;">연봉총액</label>
+                    <input type="text" id="amt-all" class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-base" class="label" style="display: none;">기본급</label>
+                    <input type="text" id="amt-base" name="amt-base" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-overtime" class="label" style="display: none;">시간외근로수당</label>
+                    <input type="text" id="amt-overtime" name="amt-overtime" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-car" class="label" style="display: none;">차량유지비</label>
+                    <input type="text" id="amt-car" name="amt-car" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-research" class="label" style="display: none;">연구활동비</label>
+                    <input type="text" id="amt-research" name="amt-research" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-job" class="label" style="display: none;">직무수당</label>
+                    <input type="text" id="amt-job" name="amt-job" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-baby" class="label" style="display: none;">육아수당</label>
+                    <input type="text" id="amt-baby" name="amt-baby" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="amt-etc" class="label" style="display: none;">기타/생산수당</label>
+                    <input type="text" id="amt-etc" name="amt-etc" required class="number-input" style="display: none;">
+                </div>
+                <div class="field" id="amt-sum-field">
+                    <label for="amt-sum" class="label" style="display: none;">합계금액</label>
+                    <input type="text" id="amt-sum" class="number-input" style="display: none;">
+                </div>
+            </div>
+            <div class="amount-section">
+                <div class="field" id="amt-all-field"> <!--중복에러로 표시되는데 실제 동작에 영향은 없다.-->
+                    <label for="bf-amt-all" class="label" style="display: none;">연봉총액</label>
+                    <input type="text" id="bf-amt-all" class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-base" class="label" style="display: none;">기본급</label>
+                    <input type="text" id="bf-amt-base" name="bf-amt-base" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-overtime" class="label" style="display: none;">시간외근로수당</label>
+                    <input type="text" id="bf-amt-overtime" name="bf-amt-overtime" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-car" class="label" style="display: none;">차량유지비</label>
+                    <input type="text" id="bf-amt-car" name="bf-amt-car" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-research" class="label" style="display: none;">연구활동비</label>
+                    <input type="text" id="bf-amt-research" name="bf-amt-research" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-job" class="label" style="display: none;">직무수당</label>
+                    <input type="text" id="bf-amt-job" name="bf-amt-job" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-baby" class="label" style="display: none;">육아수당</label>
+                    <input type="text" id="bf-amt-baby" name="bf-amt-baby" required class="number-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="bf-amt-etc" class="label" style="display: none;">기타/생산수당</label>
+                    <input type="text" id="bf-amt-etc" name="bf-amt-etc" required class="number-input" style="display: none;">
+                </div>
+                <div class="field" id="bf-amt-sum-field">
+                    <label for="bf-amt-sum" class="label" style="display: none;">합계금액</label>
+                    <input type="text" id="bf-amt-sum" class="number-input" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>MAC Address 이력 조회</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .home-button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .home-button:hover {
+            background-color: #45a049;
+        }
+        .title {
+            text-align: center;
+            margin: 0;
+            margin-bottom: 20px;
+        }
+        .form-group2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            width: 200px;
+            height: 30px;
+            margin-right: 10px;
+            box-sizing: border-box;
+        }
+        .buttons2 {
+            display: flex;
+            align-items: center;
+        }
+        .buttons2 input {
+            padding: 5px 10px;
+        }
+        .results-container {
+            margin-top: 20px;
+            max-height: 500px; /* 원하는 최대 높이 설정 */
+            overflow-y: auto; /* 세로 스크롤 가능하게 설정 */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: black;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <input id="home" type="button" value="홈으로" onclick="window.location.href='/'" class="home-button"/>
+        </div>
+        <h2 class="title">MAC Address 이력 조회</h2>
+
+        <div class="form-group2">
+            <label for="CREATE_USER">사용자 이름</label>
+            <input id="user_name" name="user_name" required="required" type="text"/>
+            <div class="buttons2">
+                <input id="view_list" type="button" value="검색" onclick="fetchData()" />
+            </div>
+        </div>
+
+        <div id="results" class="results-container"></div>
+
+        <script>
+            function fetchData() {
+                const userName = document.getElementById('user_name').value;
+
+                fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ user_name: userName })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    displayData(data);
+                })
+                .catch(error => console.log('Error:', error));
+            }
+
+            function displayData(data) {
+                const resultsDiv = document.getElementById('results');
+
+                // 테이블을 덮어쓰지 않도록 기존 테이블을 제거하는 부분을 제외
+                resultsDiv.innerHTML = '';  // 결과 초기화
+                if (data.length === 0) {
+                    resultsDiv.innerHTML = '<p>No records found</p>';
+                    return;
+                }
+
+                const table = document.createElement('table');
+
+                const headerRow = document.createElement('tr');
+                ['사용자', 'MAC Address', '사용목적', '생성일시'].forEach(headerText => {
+                    const header = document.createElement('th');
+                    header.innerText = headerText;
+                    headerRow.appendChild(header);
+                });
+                table.appendChild(headerRow);
+
+                data.forEach(row => {
+                    const dataRow = document.createElement('tr');
+                    ['create_user', 'create_mac', 'create_item', 'create_date'].forEach(key => {
+                        const cell = document.createElement('td');
+                        cell.innerText = row[key];
+                        dataRow.appendChild(cell);
+                    });
+                    table.appendChild(dataRow);
+                });
+
+                resultsDiv.appendChild(table);
+            }
+        </script>
+    </div>
+</body>
+</html>

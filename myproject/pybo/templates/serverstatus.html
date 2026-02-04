@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Status</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/serverstatus.css') }}" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/serverstatus.js') }}"></script>
+</head>
+<body>
+    <!-- Div containers for each server's CPU and memory pie charts -->
+    <div class="charts-container">
+        <script id="server-statuses" type="application/json">{{ server_statuses|tojson }}</script> <!-- 서버 상태 데이터 추가 -->
+        {% for server in server_statuses %}
+        {% if loop.index0 % 4 == 0 %}
+        {% endif %}
+            <div class="chart-group" id="chart-group-{{ loop.index0 }}">
+                <div class="chart-title">{{ server.name }}</div>
+                <div class="chart-legend">
+                    <span style="color: #e0440e;">● 사용량</span> &nbsp;&nbsp;
+                    <span style="color: #3366cc;">● 남은 용량</span>
+                </div>
+                <div class="chart-row">
+                    <div class="chart" id="cpuchart-{{ loop.index0 }}"></div>
+                    <div class="chart" id="memorychart-{{ loop.index0 }}"></div>
+                </div>
+            </div>
+        {% if loop.index0 % 4 == 3 %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-details"></div>
+        </div>
+    </div>
+
+    <table class="hidden">
+        <tr>
+            <th>서버 이름</th>
+            <th>CPU 사용량</th>
+            <th>메모리 사용량</th>
+        </tr>
+        {% for server in server_statuses %}
+        <tr>
+            <td>{{ server.name }}</td>
+            <td>{{ server.cpu_usage }}</td>
+            <td>{{ server.used_memory }} MB / {{ server.total_memory }} MB ({{ server.memory_usage }})</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

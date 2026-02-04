@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>접근 인증</title>
+
+    <!-- jQuery를 가장 먼저 로드해야 함 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contract_manage_auth.css') }}" />
+
+    <!-- JS (jQuery 이후에 로드해야 정상 작동) -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/contract_manage_auth.js') }}"></script>
+</head>
+<body>
+
+<!-- 성공 팝업 -->
+<div id="success-popup">
+    <p>인증이 완료되었습니다.</p>
+</div>
+
+<!-- 인증 팝업 -->
+<div id="auth-popup">
+    <h3>접근 인증</h3>
+    <p>주민번호 뒷자리를 입력하세요</p>
+    <input type="password" id="regi-input" maxlength="7">
+    <button id="verify-btn">확인</button>
+    <p id="error-msg" style="color:red; display:none;">잘못된 번호입니다.</p>
+</div>
+
+<div id="real-content" style="display:none;"></div>
+
+</body>
+</html>

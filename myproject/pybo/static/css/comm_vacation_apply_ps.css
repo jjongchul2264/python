@@ -1,0 +1,115 @@
+/* 박스 전체 */
+.box {
+    width: 1000px;
+    border: 5px solid #000;
+    background-color: #f8f9fa;
+    padding: 20px 30px;         /* 안쪽 여백 */
+    box-sizing: border-box;     /* padding 포함 width 계산 */
+    display: block;             /* flex 제거 */
+    /* margin: 30px auto;          /* 가운데 정렬 (좌우 auto) */
+    border-radius: 12px;        /* 살짝 둥글게 */
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 컨테이너 세로 정렬 */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;                 /* 요소 간 간격 */
+}
+
+/* 제목 */
+.title-clean {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+/* 드롭다운 */
+select {
+    width: 550px;
+    padding: 7px;
+    font-size: 13px;
+}
+
+/* 검색 섹션 (주민등록번호 + 버튼) */
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.search-section label {
+    min-width: 180px;
+}
+
+.search-section input {
+    width: 100px;
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* 버튼 */
+#buttonContainer {
+    display: flex;
+    gap: 0.5rem;
+}
+
+button {
+    padding: 0.3rem 1rem;
+    border: none;
+    background-color: brown;
+    color: white;
+    cursor: pointer;
+    border-radius: 0.35rem;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* 미사용 신청 사유 섹션 */
+.reason-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.reason-section label {
+    min-width: 180px;           /* 라벨 길이 고정 */
+}
+
+.reason-section input {
+    width: 550px;               /* select와 동일하게 */
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+body {
+    font-family: 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+    font-weight: 400;
+    color: #222;
+}
+
+strong, b, .bold,
+.title-clean,
+.search-section label,
+.reason-section label,
+button {
+    font-weight: 700 !important;
+}

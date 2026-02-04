@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연봉근로계약서 현황 조회</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/contract_query.css') }}" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/contract_query.js') }}"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-section">
+            <div class="group-box">
+                <h2>● 조회</h2>
+                <div class="button-group">
+                    <button id="all-clear-btn" type="button">초기화</button>
+                    <button id="view-signatures-btn" type="button">조회</button>
+                    <button id="all-cancel-btn" data-action="allCancel" type="button" style="display: none;">전체 취소</button>
+                </div>
+                <div class="query-container">
+                    <div class="query-field">
+                        <label for="query-year" class="label">연도</label>
+                        <select id="query-year" name="query-year" class="text-input"></select>
+                        <label for="query-dept" class="label">부서</label>
+                        <input type="text" id="query-dept" name="query-dept" class="text-input">
+                    </div>
+                    <div class="query-field">
+                        <label for="query-code" class="label">사번</label>
+                        <input type="text" id="query-code" name="query-code" class="text-input">
+                        <label for="query-name" class="label">성명</label>
+                        <input type="text" id="query-name" name="query-name" class="text-input">
+                    </div>
+                    <div class="radio-field">
+                        <label class="label">배포 여부</label>
+                        <label><input type="radio" name="distribution-status" value="%" checked> 전체</label>
+                        <label><input type="radio" name="distribution-status" value="Y"> 배포</label>
+                        <label><input type="radio" name="distribution-status" value="N"> 미배포</label>
+                        <div class="button-group">
+                            <button id="contract-distribution-btn" data-action="distribution" style="display: none;">배포</button>
+                            <button id="distribution-cancel-btn" data-action="distributionCancel" style="display: none;">배포취소</button>
+                        </div>
+                    </div>
+                    <div class="radio-field">
+                        <label class="label">사용자 확정 여부</label>
+                        <label><input type="radio" name="empconfirm-status" value="%" checked> 전체</label>
+                        <label><input type="radio" name="empconfirm-status" value="Y"> 확정</label>
+                        <label><input type="radio" name="empconfirm-status" value="N"> 미확정</label>
+                        <div class="button-group">
+                            <button id="emp-confirm-btn" data-action="empConfirm" style="display: none;">사용자 확정 처리</button>
+                            <button id="emp-cancel-btn" data-action="empCancel" style="display: none;">사용자 확정 취소</button>
+                        </div>
+                    </div>
+                    <div class="radio-field">
+                        <label class="label">관리자 확정 여부</label>
+                        <label><input type="radio" name="manageconfirm-status" value="%" checked> 전체</label>
+                        <label><input type="radio" name="manageconfirm-status" value="Y"> 확정</label>
+                        <label><input type="radio" name="manageconfirm-status" value="N"> 미확정</label>
+                        <div class="button-group">
+                            <button id="admin-confirm-btn" data-action="adminConfirm" style="display: none;">관리자 확정 처리</button>
+                            <button id="admin-cancel-btn" data-action="adminCancel" style="display: none;">관리자 확정 취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="bottom-section">
+                <table class="signature-list" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>순번</th>
+                            <th>연도</th>
+                            <th>부서</th>
+                            <th>직위</th>
+                            <th>사원번호</th>
+                            <th>성명</th>
+                            <th>배포</th>
+                            <th>사용자</th>
+                            <th>사용자확정일시</th>
+                            <th>관리자</th>
+                            <th>관리자확정일시</th>
+                            <th>처리상태</th>
+                            <th>증가액</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

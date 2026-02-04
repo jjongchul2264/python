@@ -1,0 +1,53 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jquery": true
+  },
+  "extends": ["eslint:recommended", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "script"
+  },
+  "globals": {
+    "$": "readonly",
+    "jQuery": "readonly"
+  },
+  "rules": {
+    "no-unused-vars": ["warn", {
+      "argsIgnorePattern": "^_",
+      "varsIgnorePattern": "^_"
+    }],
+    "no-console": ["warn", {
+      "allow": ["warn", "error"]
+    }],
+    "prefer-const": "warn",
+    "no-var": "warn",
+    "eqeqeq": ["warn", "always"],
+    "curly": ["warn", "all"],
+    "brace-style": ["warn", "1tbs"],
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "double", {
+      "avoidEscape": true,
+      "allowTemplateLiterals": true
+    }],
+    "indent": ["warn", 4, {
+      "SwitchCase": 1
+    }],
+    "no-trailing-spaces": "warn",
+    "no-multiple-empty-lines": ["warn", {
+      "max": 2,
+      "maxEOF": 1
+    }],
+    "space-before-function-paren": ["warn", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
+    "comma-dangle": ["warn", "never"],
+    "arrow-spacing": "warn",
+    "keyword-spacing": "warn",
+    "space-infix-ops": "warn",
+    "no-multi-spaces": "warn"
+  }
+}

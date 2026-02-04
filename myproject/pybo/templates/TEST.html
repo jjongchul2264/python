@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Encryption Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script>
+        // 주어진 JavaScript 코드 삽입
+        var Util = {};
+
+        Util.CryptoEncrypt = function(c, d) {
+            var b = "";
+            var a = CryptoJS.AES.encrypt(d, c);
+            if (a != null && a != undefined) {
+                b = a.toString();
+            }
+            return b;
+        };
+
+        Util.CryptoDecrypt = function(b, c) {
+            var a = CryptoJS.AES.decrypt(c, b);
+            return a.toString(CryptoJS.enc.Utf8);
+        };
+
+        Util.CryptoEncryptIV = function(d, e, c) {
+            if (d == null || d == undefined || d == "") {
+                return e;
+            }
+            var b = CryptoJS.enc.Utf8.parse(d);
+            var a = CryptoJS.enc.Utf8.parse(c);
+            var f = CryptoJS.enc.Utf8.parse(e);
+            encrypted = CryptoJS.AES.encrypt(f, b, {
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+                iv: a
+            });
+            if (encrypted != null && encrypted != undefined) {
+                encryptedValue = encrypted.toString();
+            }
+            return encryptedValue;
+        };
+
+        Util.CryptoDecryptIV = function(f, a, e) {
+            var d = CryptoJS.enc.Utf8.parse(f);
+            var c = CryptoJS.enc.Utf8.parse(e);
+            var b = CryptoJS.AES.decrypt(a, d, {
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7,
+                iv: c
+            });
+            return b.toString(CryptoJS.enc.Utf8);
+        };
+
+        // 테스트 코드 작성
+        function testCrypto() {
+            var key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // 실제 암호화 키로 대체
+            var iv = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="; // 실제 초기화 벡터로 대체
+            var encryptedString = "0x005A5B23329D3A51DB9639B6A27A0547020000008879002ECA60FFAFA90E48B5BA235F52E22B2A09C0F4C57FA1505938983B539FAC8A0B6E1C58740A523F9EB2CBF06DD9F95241E110E24479B954EBD787B404C9";
+
+            // 16진수를 Base64 문자열로 변환
+            encryptedString = encryptedString.slice(2); // '0x' 제거
+            encryptedString = CryptoJS.enc.Hex.parse(encryptedString).toString(CryptoJS.enc.Base64);
+
+            var decryptedData = CryptoJS.AES.decrypt(encryptedString, CryptoJS.enc.Utf8.parse(key), {
+                iv: CryptoJS.enc.Utf8.parse(iv),
+                mode: CryptoJS.mode.CBC,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            var decryptedString = decryptedData.toString(CryptoJS.enc.Utf8);
+
+            document.getElementById("encrypted-data").innerText = "Encrypted Data: " + encryptedString;
+            document.getElementById("decrypted-data").innerText = "Decrypted Data: " + decryptedString;
+        }
+
+        // 페이지 로드 시 테스트 실행
+        window.onload = function() {
+            testCrypto();
+        };
+    </script>
+</head>
+<body>
+    <h1>Encryption Test</h1>
+    <p id="encrypted-data"></p>
+    <p id="decrypted-data"></p>
+</body>
+</html>

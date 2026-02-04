@@ -1,0 +1,112 @@
+/* salary_deduction.css */
+body {
+    font-family: Arial, sans-serif;
+    color: black;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* 뷰포트 높이에 맞게 설정 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "맑은 고딕", sans-serif;
+}
+.search-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 10px;
+    font-size: 13px;
+    font-family: "맑은 고딕", sans-serif;
+    font-weight: bold; /* 굵게 */
+}
+
+#buttonContainer {
+    display: flex;
+    gap: 0.5rem;
+    background-color: #e9ecef;
+    border-bottom: 1px solid #ccc;
+}
+
+button {
+    padding: 0.2rem 1rem; /* 버튼 사이즈 조정 */
+    border: 0px solid #28a745; /* Green border */
+    background-color: brown; /* Green background */
+    color: white;
+    cursor: pointer;
+    border-radius: 0.35rem;
+    font-size: 13px;
+    font-family: "맑은 고딕", sans-serif;
+    font-weight: bold; /* 굵게 */
+}
+
+/*버튼 위에 마우스 커서가 올라갔을때 색상 변경*/
+button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+#gridContainer {
+    display: flex; /* 가로 정렬 */
+    justify-content: space-between; /* 좌우 정렬 */
+    width: 100%;
+    height: 750px; /* 원하는 높이 */
+}
+
+#myGrid, #myGrid2 {
+    width: 49.8%; /* 두 개가 나란히 보이도록 너비 설정 */
+    height: 100%;
+}
+
+.right-aligned {
+    text-align: right;
+}
+
+.ag-theme-alpine .ag-cell {
+    font-size: 13px;
+}
+
+.centered {
+.ag-header-cell-label
+, .header-custom {
+    justify-content: center !important;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: 13px;
+    font-family: "맑은 고딕", sans-serif;
+    font-weight: bold; /* 굵게 */
+    }
+}
+
+/* 사용자 정의 CSS 클래스 */
+.header-custom {
+    color: red; /* 원하는 색상으로 변경 */
+    font-weight: bold; /* 필요에 따라 글꼴 굵기 추가 */
+}
+
+.header-custom2 {
+    color: blue; /* 원하는 색상으로 변경 */
+    font-weight: bold; /* 필요에 따라 글꼴 굵기 추가 */
+}
+
+/* 그리드 헤더텍스트 배경색 변경 skyblue, lightblue 등등 */
+.ag-header {
+    background-color: #ADD8E6 !important; /* 헤더 전체 배경색 */
+}
+.ag-header-cell {
+    background-color: #ADD8E6 !important; /* 각 헤더 셀 배경색 */
+    white-space: normal !important;   /* 줄바꿈 허용 */
+    line-height: 1.2;                 /* 줄 간격 줄이기 */
+    text-align: center;               /* 중앙 정렬 (선택) */
+    word-break: break-word;           /* 단어 단위 줄바꿈 */
+}
+
+/*등록일자 입력 박스 둥근 모서리 적용*/
+input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* 둥근 모서리 적용 */
+    outline: none;
+}

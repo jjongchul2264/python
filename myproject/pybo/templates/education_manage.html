@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>임직원 교육 관리</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/education_manage.css') }}" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="{{ url_for('static', filename='js/education_manage.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-section">
+            <div class="group-box">
+                <div class="title-row">
+                    <h2>● 조회</h2>
+                    <button type="button" id="btn-query" data-action="dataquery">조회</button>
+                    <button type="button" id="btn-new" data-action="datanew">신규</button>
+                    <button type="button" id="btn-save" data-action="datasave" >저장</button>
+                    <button type="button" id="btn-delete" data-action="datadelete" >삭제</button>
+                </div>
+                <div class="query-field">
+                    <label for="from_date" class="label">등록일자</label>
+                    <input type="text" id="from_date" name="from_date" required class="date-input">
+                    <h2>&nbsp;~&nbsp;</h2>
+                    <input type="text" id="to_date" name="to_date" required class="date-input">
+                </div>
+            </div>
+        </div>
+        <div class="middle-section">
+            <div class="group-box">
+                <div class="title-row">
+                    <h2>● 교육 등록</h2>
+                    <form id="upload-form" enctype="multipart/form-data">
+                        <input type="file" id="real-file" name="file" hidden
+                               accept=".pdf, .ppt, .pptx">
+
+                        <button type="button" id="custom-file-btn">파일선택</button>
+                        <span id="file-name" style="margin-left:10px; font-size:14px; color:#333;"></span>
+                    </form>
+
+                    <input type="text" id="attch-file-path" name="attch-file-path" required class="text-input" style="display: none;">
+                    <input type="text" id="attch-file-name" name="attch-file-name" required class="text-input" style="display: none;">
+                </div>
+                <div class="field">
+                    <label for="edu_no" class="label">교육번호</label>
+                        <input type="text" id="edu_no" class="text" readonly>
+                    <label for="edu_date" class="label">등록일자</label>
+                        <input type="text" id="edu_date" name="edu_date" required class="date-input">
+                    <label for="edu_name" class="label">교육명</label>
+                        <input type="text" id="edu_name" name="edu_name" required class="edu_name-input">
+                    <label for="edu_begin_date" class="label">교육시작일자</label>
+                        <input type="datetime-local" id="edu_begin_date" name="edu_begin_date" required class="date-input2">
+                    <label for="edu_end_date" class="label">교육종료일자</label>
+                        <input type="datetime-local" id="edu_end_date" name="edu_end_date" required class="date-input2">
+                </div>
+            </div>
+        </div>
+        <div class="bottom-section">
+            <div class="bottom-section-left">
+                <div class="group-box">
+                    <div class="title-row">
+                        <h2>● 교육 List</h2>
+                        <button type="button" id="btn-mailing" data-action="mailing" >메일 발송(전체)</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="edu_list" id="edudataTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>교육번호</th>
+                                    <th>등록일자</th>
+                                    <th>교육명</th>
+                                    <th>교육시작일자</th>
+                                    <th>교육종료일자</th>
+                                    <th>첨부파일명</th>
+                                    <th>메일발송여부</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-section-right">
+                <div class="group-box">
+                    <div class="title-row">
+                        <h2>● 수료자 List</h2>
+                        <button type="button" id="btn-mailing2" data-action="mailing2" >메일 발송(미수료자)</button>
+                        <button type="button" id="btn-emp-del">대상자 삭제</button>
+
+                    </div>
+                    <div class="title-row">
+                        <label for="tot_count" class="label">총인원</label>
+                        <input type="text" id="tot_count" name="tot_count" class="count" readonly>
+                        <label for="nc_count" class="label">미수료인원</label>
+                        <input type="text" id="nc_count" name="nc_count" class="count" readonly>
+                        <label><input type="radio" name="edu-grand-status" value="%" checked> 전체</label>
+                        <label><input type="radio" name="edu-grand-status" value="Y"> 수료</label>
+                        <label><input type="radio" name="edu-grand-status" value="N"> 미수료</label>
+                    </div>
+                    <div class="table-container">
+                        <table class="gran-list" id="grandataTable">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>순번</th>
+                                    <th>교육번호</th>
+                                    <th>부서명</th>
+                                    <th>사원번호</th>
+                                    <th>사원명</th>
+                                    <th>수료일자</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 데이터가 JavaScript로 추가될 것입니다 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="upload-modal" class="modal">
+        <div class="modal-content">
+            <div class="spinner"></div>
+            <p>저장 중입니다...</p>
+        </div>
+    </div>
+</body>
+
+</html>
