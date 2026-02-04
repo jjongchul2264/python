@@ -111,10 +111,15 @@ document.addEventListener("DOMContentLoaded", function () {
             activateTab(draggedTab);
 
             // 애니메이션 효과 (탭 버튼)
-            draggedTab.classList.add("animate-in");
-            setTimeout(() => {
-                draggedTab.classList.remove("animate-in");
-            }, 300);
+            const tabToAnimate = draggedTab;
+            if (tabToAnimate && tabToAnimate.classList) {
+                tabToAnimate.classList.add("animate-in");
+                setTimeout(() => {
+                    if (tabToAnimate && tabToAnimate.classList) {
+                        tabToAnimate.classList.remove("animate-in");
+                    }
+                }, 300);
+            }
 
             if (placeholder.parentNode) {
                 placeholder.parentNode.removeChild(placeholder);
@@ -270,6 +275,13 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // 중복 콘텐츠가 있는지 확인 (탭은 없지만 콘텐츠만 남아있는 경우)
+        const existingContent = document.querySelector(`.tabcontent[data-url='${url}']`);
+        if (existingContent) {
+            console.warn("중복 콘텐츠 발견, 제거:", url);
+            existingContent.remove();
+        }
+
         // 새로운 탭 요소 생성
         const newTab = document.createElement("button");
         newTab.classList.add("tablinks");
@@ -311,15 +323,50 @@ document.addEventListener("DOMContentLoaded", function () {
                 const previousTab = newTab.previousElementSibling;
                 const nextTab = newTab.nextElementSibling;
 
-                newTab.remove();
-                newContentDiv.remove();
+                // 탭 URL 가져오기
+                const tabUrl = newTab.getAttribute("data-url");
 
+                // education_manage 탭이 닫힐 때 세션 스토리지 초기화
+                try {
+                    if (tabUrl === "/docs/education_manage") {
+                        sessionStorage.removeItem("education_manage_data");
+                        sessionStorage.removeItem("education_manage_query_params");
+                        sessionStorage.removeItem("education_manage_selected_edu");
+                        // 모든 수료자 데이터도 삭제
+                        Object.keys(sessionStorage).forEach(key => {
+                            if (key.startsWith("education_manage_data_gran_")) {
+                                sessionStorage.removeItem(key);
+                            }
+                        });
+                    }
+                } catch (error) {
+                    console.error("세션 스토리지 정리 중 오류:", error);
+                }
+
+                // URL로 콘텐츠 찾아서 제거 (더 안전한 방법)
+                const contentToRemove = document.querySelector(`.tabcontent[data-url='${tabUrl}']`);
+                if (contentToRemove) {
+                    contentToRemove.remove();
+                    console.log("콘텐츠 제거:", tabUrl);
+                } else {
+                    console.warn("제거할 콘텐츠를 찾을 수 없음:", tabUrl);
+                }
+
+                // 탭 버튼 제거
+                newTab.remove();
+
+                // 다음 탭 활성화
                 if (previousTab) {
                     activateTab(previousTab);
                 } else if (nextTab) {
                     activateTab(nextTab);
                 } else {
                     console.log("모든 탭이 닫혔습니다.");
+                    // 모든 탭이 닫혔을 때 남아있는 콘텐츠 정리
+                    const allContents = document.querySelectorAll(".tabcontent");
+                    allContents.forEach(content => {
+                        content.style.display = "none";
+                    });
                 }
             } else {
                 activateTab(newTab);
@@ -341,10 +388,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const tabcontents = document.getElementsByClassName("tabcontent");
 
         // 모든 탭 비활성화
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-            tabcontents[i].style.display = "none";
-        }
+        Array.from(tablinks).forEach(link => link.classList.remove("active"));
+
+        // 모든 콘텐츠 숨기기
+        Array.from(tabcontents).forEach(content => content.style.display = "none");
 
         // 선택된 탭 활성화
         tab.classList.add("active");
