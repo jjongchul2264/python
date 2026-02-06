@@ -3,5 +3,6 @@
         "myproject"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "idf.currentSetup": "e:\\ESP\\v5.4.1\\esp-idf"
 }

@@ -1,0 +1,10 @@
+-- 관리자 사용자 테이블
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'TB_USER_ADMIN')
+BEGIN
+    CREATE TABLE TB_USER_ADMIN (
+        admin_id INT IDENTITY(1,1) PRIMARY KEY,
+        emp_code NVARCHAR(50) NOT NULL UNIQUE,
+        created_at DATETIME DEFAULT GETDATE()
+    );
+    CREATE INDEX IX_USER_ADMIN_EMP ON TB_USER_ADMIN(emp_code);
+END

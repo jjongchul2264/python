@@ -11,7 +11,11 @@
       "Bash(git commit:*)",
       "Bash(flask run:*)",
       "Bash(timeout 3 tail:*)",
-      "Bash(exit 0)"
+      "Bash(exit 0)",
+      "Bash(python:*)",
+      "Bash(timeout 2 tail:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)"
     ]
   }
 }

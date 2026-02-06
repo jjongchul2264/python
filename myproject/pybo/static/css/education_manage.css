@@ -1,344 +1,65 @@
-html,
-body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    overflow: hidden; /* 전체 스크롤 제거 */
-}
+/* Education Manage CSS */
+@import url('common.css');
+@import url('layout.css');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-/* 전체 화면 덮는 반투명 배경 */
-.modal {
-    display: none; /* 기본은 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-/* 팝업 박스 */
-.modal-content {
-    background: white;
-    padding: 20px 30px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-}
-
-/* 스피너 */
-.spinner {
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #4CAF50;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin: 0 auto 10px auto;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.title-row {
-    display: flex;
-    align-items: center; /* 세로 가운데 정렬 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 10px; /* h2와 버튼 사이 간격 */
-    margin-bottom: 10px;
-}
-
-
-.title-row form {
-    display: flex;
-    align-items: center;
-    gap: 10px; /* 버튼 간 간격 */
-}
-
-h2 {
-    margin: 0; /* 기본 마진 제거 */
-}
-
-/* 기본 파일 input 숨기기 */
-input[type="file"] {
-    display: none;
-}
-
-/* 커스텀 파일 버튼 */
-.file-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 120px;
-    height: 22px;
-    padding: 0;
-    font-size: 13px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-    transition: 0.2s;
-    line-height: 10px;
-    text-align: center;
-}
-
-.file-label:hover {
-    background-color: #45a049;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120px;
-    height: 22px;
-    margin-right: 10px;
-    font-size: 13px;
-}
-
-#upload-btn:disabled {
-    background-color: #ccc !important;
-    cursor: not-allowed !important;
-    color: #666 !important;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* 화면 전체 높이 */
-    width: 100%;
-    padding: 10px;
-    gap: 3px;
-    font-size: 13px;
-    overflow: hidden;
-    background-color: white;
-}
-
-.group-box legend {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 0 10px;
-}
-
-.group-box {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 15px;
-    background-color: #f9f9f9;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.group-box h2 {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #333;
-}
-
-/* 상단은 내용만큼만 차지 */
-.top-section
- , .middle-section{
-    flex: 0 0 auto; /* 높이 고정 */
+/* Top Section */
+.top-section,
+.middle-section {
+    flex: 0 0 auto;
     width: 100%;
     background-color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
-/* 하단은 남는 공간 전체 차지 */
+/* Bottom Section */
 .bottom-section {
     display: flex;
     gap: 5px;
     overflow: hidden;
 }
 
-/* 좌우 박스는 하단 영역을 꽉 채움 */
 .bottom-section-left,
 .bottom-section-right {
     width: 50%;
     flex: 1;
     flex-direction: column;
     background-color: white;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.query-field {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1 1 100%; /* 한 줄 전체 너비 사용 */
-    min-width: 100px;
-}
-
+/* Education Name Input */
 .edu-name-input {
     display: flex;
     align-items: center;
-    /* 라벨과 입력 필드를 같은 선상에 정렬 */
     flex: 1 1 calc(33.33% - 20px);
-    /* 각 필드의 너비 설정 */
     max-width: 300px;
-    /* 필드의 최소 너비 설정 */
     margin-left: 0;
-    /* 라벨과 필드의 동일한 시작선 */
 }
 
-.field {
-    display: flex;
-    align-items: center;
-    /* 라벨과 입력 필드를 같은 선상에 정렬 */
-    flex: 1 1 calc(33.33% - 20px);
-    /* 각 필드의 너비 설정 */
-    min-width: 100px;
-    /* 필드의 최소 너비 설정 */
-    margin-left: 0;
-    /* 라벨과 필드의 동일한 시작선 */
+/* Count Input */
+.count {
+    text-align: right;
+    width: 50px;
 }
 
+/* Date Input Variant */
+.date-input2 {
+    text-align: left;
+    width: 150px;
+}
+
+/* Table Container */
+.table-container {
+    max-height: 40vh;
+}
+
+/* Field margin */
 .field:not(:last-child) {
     margin-bottom: 10px;
 }
 
-.one-label,
-.label {
-    margin-right: 10px;
-    /* 라벨과 입력 필드 간의 간격 */
-    width: 110px;
-    /* 라벨의 고정 너비 */
-    text-align: right;
+/* Upload button disabled state */
+#upload-btn:disabled {
+    background-color: #ccc !important;
+    cursor: not-allowed !important;
+    color: #666 !important;
 }
-
-.number-input {
-    text-align: right;
-    /* 텍스트 우측 정렬 */
-    width: 110px;
-    /* 입력 필드의 고정 너비 */
-}
-
-.count {
-    text-align: right;
-    width: 50px;
-    /* 입력 필드의 고정 너비 */
-}
-
-.date-input2, {
-    text-align: left;
-    width: 150px;
-    /* 입력 필드의 고정 너비 */
-}
-
-.date-input,
-.text-input {
-    text-align: left;
-    width: 110px;
-    /* 입력 필드의 고정 너비 */
-}
-
-.input-size {
-    width: 100px;
-    height: 22px;
-}
-
-.table-container {
-    max-height: 40vh; /* 원하는 높이로 조절 가능 */
-    overflow-x: auto;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    border: 1px solid #ddd;
-    border-top: none;
-    padding: 8px;
-    background-color: #6C757D;
-    /* 중성 계열 배경색 (어두운 회색) */
-    color: white;
-    /* 하얀색 텍스트 */
-    text-align: center !important;
-    /* 중요! 텍스트 가운데 정렬 */
-    position: sticky;
-    /* 헤더 고정 */
-    top: 0;
-    /* 스크롤 시 상단에 고정 */
-    z-index: 1;
-    /* 다른 요소보다 위에 위치 */
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-tr.selected {
-    background-color: #D1E7DD;
-    /* 부드러운 파스텔 색상 */
-    color: #0F5132;
-    /* 텍스트 색상 */
-}
-
-.signature-list .select-row,
-.signature-list .contract-flag-cell,
-.signature-list .manageConfirmCell,
-.signature-list .empConfirmCell {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* 추가 */
-}
-
-/* 반응형 레이아웃 설정 */
-@media (max-width: 768px) {
-    .top-section, .bottom-container {
-        flex-direction: column;
-    }
-    .top-section-top{
-        width: 100%;
-        flex: none;
-    }
-
-    .iframe-pane {
-        width: 100% !important;
-        height: auto;
-    }
-
-    #contract-iframe {
-        width: 100% !important;
-        height: auto;
-    }
-}
-

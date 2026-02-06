@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 관리</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu_manage.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-bars"></i> 메뉴 관리</h1>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="openAddMenuModal()">
+                    <i class="fas fa-plus"></i> 메뉴 추가
+                </button>
+                <button class="btn btn-secondary" onclick="showStatsPanel()">
+                    <i class="fas fa-chart-bar"></i> 통계
+                </button>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 메인 메뉴 패널 -->
+            <div class="panel menu-panel">
+                <div class="panel-header">
+                    <h2>메인 메뉴</h2>
+                    <span class="hint">드래그하여 순서 변경</span>
+                </div>
+                <div class="panel-body">
+                    <ul id="menu-list" class="sortable-list"></ul>
+                </div>
+            </div>
+
+            <!-- 서브 메뉴 패널 -->
+            <div class="panel submenu-panel">
+                <div class="panel-header">
+                    <h2>서브 메뉴</h2>
+                    <button class="btn btn-sm btn-primary" id="add-submenu-btn" onclick="openAddSubmenuModal()" disabled>
+                        <i class="fas fa-plus"></i> 추가
+                    </button>
+                </div>
+                <div class="panel-body">
+                    <div id="no-menu-selected" class="empty-state">
+                        <i class="fas fa-hand-pointer"></i>
+                        <p>메인 메뉴를 선택하세요</p>
+                    </div>
+                    <ul id="submenu-list" class="sortable-list" style="display: none;"></ul>
+                </div>
+            </div>
+
+            <!-- 편집 패널 -->
+            <div class="panel edit-panel">
+                <div class="panel-header">
+                    <h2 id="edit-panel-title">편집</h2>
+                </div>
+                <div class="panel-body">
+                    <div id="no-item-selected" class="empty-state">
+                        <i class="fas fa-edit"></i>
+                        <p>편집할 항목을 선택하세요</p>
+                    </div>
+                    <form id="edit-form" style="display: none;">
+                        <input type="hidden" id="edit-type">
+                        <input type="hidden" id="edit-id">
+
+                        <div class="form-group">
+                            <label>이름</label>
+                            <input type="text" id="edit-name" class="form-control" required>
+                        </div>
+
+                        <div class="form-group" id="edit-icon-group">
+                            <label>아이콘</label>
+                            <div class="icon-selector">
+                                <div class="selected-icon" onclick="toggleIconPicker()">
+                                    <i id="edit-icon-preview" class="fas fa-folder"></i>
+                                    <span id="edit-icon-text">fas fa-folder</span>
+                                </div>
+                                <div id="icon-picker" class="icon-picker"></div>
+                            </div>
+                            <input type="hidden" id="edit-icon">
+                        </div>
+
+                        <div class="form-group" id="edit-url-group" style="display: none;">
+                            <label>URL</label>
+                            <input type="text" id="edit-url" class="form-control" placeholder="/example/page">
+                        </div>
+
+                        <div class="form-group">
+                            <label>활성 상태</label>
+                            <label class="switch">
+                                <input type="checkbox" id="edit-active" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> 저장
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="deleteItem()">
+                                <i class="fas fa-trash"></i> 삭제
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- 권한 설정 섹션 -->
+                    <div id="auth-section" style="display: none;">
+                        <h3>권한 설정</h3>
+                        <div class="auth-search">
+                            <select id="auth-type" class="form-control">
+                                <option value="USER">사용자</option>
+                                <option value="DEPT">부서</option>
+                            </select>
+                            <input type="text" id="auth-search" class="form-control" placeholder="검색...">
+                            <button class="btn btn-sm btn-primary" onclick="searchAuth()">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div id="auth-search-results" class="auth-results"></div>
+                        <div class="auth-list-header">
+                            <span>현재 권한</span>
+                        </div>
+                        <ul id="auth-list" class="auth-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메뉴 추가 모달 -->
+    <div id="add-menu-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>메인 메뉴 추가</h3>
+                <span class="close" onclick="closeModal('add-menu-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="add-menu-form">
+                    <div class="form-group">
+                        <label>메뉴명 <span class="required">*</span></label>
+                        <input type="text" id="new-menu-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>아이콘</label>
+                        <div class="icon-selector">
+                            <div class="selected-icon" onclick="toggleIconPicker('new')">
+                                <i id="new-icon-preview" class="fas fa-folder"></i>
+                                <span id="new-icon-text">fas fa-folder</span>
+                            </div>
+                            <div id="new-icon-picker" class="icon-picker"></div>
+                        </div>
+                        <input type="hidden" id="new-menu-icon" value="fas fa-folder">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('add-menu-modal')">취소</button>
+                <button class="btn btn-primary" onclick="addMenu()">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 서브메뉴 추가 모달 -->
+    <div id="add-submenu-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>서브메뉴 추가</h3>
+                <span class="close" onclick="closeModal('add-submenu-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="add-submenu-form">
+                    <div class="form-group">
+                        <label>서브메뉴명 <span class="required">*</span></label>
+                        <input type="text" id="new-submenu-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>URL <span class="required">*</span></label>
+                        <input type="text" id="new-submenu-url" class="form-control" placeholder="/example/page" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('add-submenu-modal')">취소</button>
+                <button class="btn btn-primary" onclick="addSubmenu()">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 통계 모달 -->
+    <div id="stats-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3><i class="fas fa-chart-bar"></i> 메뉴 사용 통계</h3>
+                <span class="close" onclick="closeModal('stats-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="stats-filters">
+                    <div class="form-group">
+                        <label>시작일</label>
+                        <input type="date" id="stats-start-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>종료일</label>
+                        <input type="date" id="stats-end-date" class="form-control">
+                    </div>
+                    <button class="btn btn-primary" onclick="loadStats()">
+                        <i class="fas fa-search"></i> 조회
+                    </button>
+                </div>
+                <div class="stats-content">
+                    <div class="stats-table-container">
+                        <h4>메뉴별 접근 현황</h4>
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>메뉴</th>
+                                    <th>서브메뉴</th>
+                                    <th>접근 횟수</th>
+                                    <th>사용자 수</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stats-table-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="stats-chart-container">
+                        <h4>일별 접근 추이</h4>
+                        <div id="stats-chart" class="chart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="{{ url_for('static', filename='js/theme.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/menu_manage.js') }}"></script>
+</body>
+</html>

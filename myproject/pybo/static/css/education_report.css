@@ -1,81 +1,23 @@
-html,
-body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    overflow: hidden; /* 전체 스크롤 제거 */
-}
+/* Education Report CSS */
+@import url('common.css');
+@import url('layout.css');
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-/* 전체 화면 덮는 반투명 배경 */
-.modal {
-    display: none; /* 기본은 숨김 */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-
+/* Title Row (underscore version) */
 .title_row {
     display: flex;
-    align-items: center; /* 세로 가운데 정렬 */
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    gap: 10px; /* h2와 버튼 사이 간격 */
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
     margin-bottom: 10px;
 }
-
 
 .title_row form {
     display: flex;
     align-items: center;
-    gap: 10px; /* 버튼 간 간격 */
+    gap: 10px;
 }
 
-h2 {
-    margin: 0; /* 기본 마진 제거 */
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120px;
-    height: 22px;
-    margin-right: 10px;
-    font-size: 13px;
-}
-
-
-.container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh; /* 화면 전체 높이 */
-    width: 100%;
-    padding: 10px;
-    gap: 3px;
-    font-size: 13px;
-    overflow: hidden;
-    background-color: white;
-}
-
-.group_box legend {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 0 10px;
-}
-
+/* Group Box (underscore version) */
 .group_box {
     width: 100%;
     height: 100%;
@@ -83,7 +25,13 @@ button {
     border-radius: 5px;
     padding: 15px;
     background-color: #f9f9f9;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.group_box legend {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
 }
 
 .group_box h2 {
@@ -93,9 +41,9 @@ button {
     color: #333;
 }
 
-/* 상단은 내용만큼만 차지 */
+/* Top Section (underscore version) */
 .top_section {
-    flex: 0 0 auto; /* 높이 고정 */
+    flex: 0 0 auto;
     width: 100%;
     background-color: white;
     padding: 10px;
@@ -105,7 +53,7 @@ button {
     overflow: hidden;
 }
 
-/* 하단은 남는 공간 전체 차지 */
+/* Bottom Section (underscore version) */
 .bottom_section {
     flex: 1;
     display: flex;
@@ -113,7 +61,6 @@ button {
     overflow: hidden;
 }
 
-/* 좌우 박스는 하단 영역을 꽉 채움 */
 .bottom_section_left,
 .bottom_section_right {
     width: 50%;
@@ -126,75 +73,51 @@ button {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Query Field (underscore version) */
 .query_field {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1 1 100%; /* 한 줄 전체 너비 사용 */
+    flex: 1 1 100%;
     min-width: 100px;
 }
 
+/* Education Name Input (underscore version) */
 .edu_name_input {
     display: flex;
     align-items: center;
-    /* 라벨과 입력 필드를 같은 선상에 정렬 */
     flex: 1 1 calc(33.33% - 20px);
-    /* 각 필드의 너비 설정 */
     max-width: 300px;
-    /* 필드의 최소 너비 설정 */
     margin-left: 0;
-    /* 라벨과 필드의 동일한 시작선 */
 }
 
-.field {
-    display: flex;
-    align-items: center;
-    /* 라벨과 입력 필드를 같은 선상에 정렬 */
-    flex: 1 1 calc(33.33% - 20px);
-    /* 각 필드의 너비 설정 */
-    min-width: 100px;
-    /* 필드의 최소 너비 설정 */
-    margin-left: 0;
-    /* 라벨과 필드의 동일한 시작선 */
-}
-
-.field:not(:last-child) {
-    margin-bottom: 10px;
-}
-
-.one_label,
-.label {
+/* Label (underscore version) */
+.one_label {
     margin-right: 10px;
-    /* 라벨과 입력 필드 간의 간격 */
     width: 110px;
-    /* 라벨의 고정 너비 */
     text-align: right;
 }
 
+/* Input variants (underscore version) */
 .number_input {
     text-align: right;
-    /* 텍스트 우측 정렬 */
     width: 110px;
-    /* 입력 필드의 고정 너비 */
 }
 
 .count {
     text-align: right;
     width: 50px;
-    /* 입력 필드의 고정 너비 */
 }
 
-.date_input2, {
+.date_input2 {
     text-align: left;
     width: 150px;
-    /* 입력 필드의 고정 너비 */
 }
 
 .date_input,
 .text_input {
     text-align: left;
     width: 110px;
-    /* 입력 필드의 고정 너비 */
 }
 
 .input_size {
@@ -202,181 +125,111 @@ button {
     height: 22px;
 }
 
+/* Table Container (underscore version) */
 .table_container {
-    max-height: 74vh; /* 원하는 높이로 조절 가능 */
+    max-height: 74vh;
     overflow-x: auto;
     overflow-y: auto;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    border: 1px solid #ddd;
-    border-top: none;
-    padding: 8px;
-    background-color: #6C757D;
-    /* 중성 계열 배경색 (어두운 회색) */
-    color: white;
-    /* 하얀색 텍스트 */
-    text-align: center !important;
-    /* 중요! 텍스트 가운데 정렬 */
-    position: sticky;
-    /* 헤더 고정 */
-    top: 0;
-    /* 스크롤 시 상단에 고정 */
-    z-index: 1;
-    /* 다른 요소보다 위에 위치 */
-}
-
+/* Report Table */
 .rpt_edu_gran_list {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-.rpt_edu_gran_list th, .rpt_edu_gran_list td {
-  border: 1px solid #ccc;
-  padding: 6px;
-  text-align: center;
-  white-space: nowrap; /* 줄바꿈 방지 */
-}
-.signature-cell img {
-  height: 40px;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-tr.selected {
-    background-color: #D1E7DD;
-    /* 부드러운 파스텔 색상 */
-    color: #0F5132;
-    /* 텍스트 색상 */
-}
-
-.signature-list .select-row,
-.signature-list .contract-flag-cell,
-.signature-list .manageConfirmCell,
-.signature-list .empConfirmCell {
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    /* 추가 */
-}
-
-/* 반응형 레이아웃 설정 */
-@media (max-width: 768px) {
-    .top-section, .bottom-container {
-        flex-direction: column;
-    }
-    .top-section-top{
-        width: 100%;
-        flex: none;
-    }
-
-    .iframe-pane {
-        width: 100% !important;
-        height: auto;
-    }
-
-    #contract-iframe {
-        width: 100% !important;
-        height: auto;
-    }
-}
-
-/* 화면에서는 숨김 */
-#print-area {
-  display: none;
-}
-
-/* 인쇄/PDF 공통 스타일 */
-@media print {
-  /* 전체 페이지 설정 */
-  body {
-    margin: 0;
-    padding: 0;
-    font-size: 12px;
-    color: #000;
-    background: #fff;
-  }
-
-  /* 인쇄할 영역만 보이게 */
-  body * {
-    visibility: hidden;
-  }
-  #print-area, #print-area * {
-    visibility: visible;
-  }
-  #print-area {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-  }
-
-  /* 테이블 스타일 */
-  table {
-    width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
-    page-break-inside: auto;
-  }
+}
 
-  th, td {
-    border: 1px solid #333;
+.rpt_edu_gran_list th,
+.rpt_edu_gran_list td {
+    border: 1px solid #ccc;
     padding: 6px;
     text-align: center;
-    font-size: 11px;
-  }
+    white-space: nowrap;
+}
 
-  /* 헤더/푸터 반복 */
-  thead { display: table-header-group; }
-  tfoot { display: table-footer-group; }
-
-  /* 행 분리 */
-  tr {
-    page-break-inside: avoid;
-    page-break-after: auto;
-  }
-
-  /* 서명 이미지 크기 */
-  .signature-cell img {
+.signature-cell img {
     height: 40px;
-  }
+}
 
-  /* 버튼/메뉴 숨기기 */
-  .no-print,
-  #btn_pdf,
-  #btn_print {
-    display: none !important;
-  }
+/* Print Area */
+#print-area {
+    display: none;
+}
 
-  /* 제목 스타일 */
-  h2 {
-    font-size: 16px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
+/* Print Styles */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        color: #000;
+        background: #fff;
+    }
 
-  /* 페이지 여백 */
-  @page {
-    size: A4;
-    margin: 15mm;
-  }
+    body * {
+        visibility: hidden;
+    }
+
+    #print-area,
+    #print-area * {
+        visibility: visible;
+    }
+
+    #print-area {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: auto;
+    }
+
+    th,
+    td {
+        border: 1px solid #333;
+        padding: 6px;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-footer-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .signature-cell img {
+        height: 40px;
+    }
+
+    .no-print,
+    #btn_pdf,
+    #btn_print {
+        display: none !important;
+    }
+
+    h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
 }

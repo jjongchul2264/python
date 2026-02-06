@@ -16,16 +16,22 @@
         <p style="color:red;">{{ error }}</p>
     {% endif %}
     <form action="/intellics" method="POST">
-        <label id = "username" for="username">아이디</label>
-        <input type="text" name="username" class="input-field"><br>
+        <label for="username">아이디</label>
+        <input type="text" id="username" name="username" class="input-field"><br>
 
         <label for="password">비밀번호</label>
-        <div style="position:relative; display:inline-block;">
-          <input type="password" id="password" name="password" class="input-field" style="padding-right:30px;">
-          <i class="fas fa-eye-slash" id="togglePassword"
-             style="position:absolute; right:8px; top:35%; transform:translateY(-50%); cursor:pointer;"></i>
-        </div>
+        <input type="password" id="password" name="password" class="input-field">
 
+        <div class="checkbox-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="saveUsername">
+                <span>아이디 저장</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="savePassword">
+                <span>비밀번호 저장</span>
+            </label>
+        </div>
 
         <button type="submit">로그인</button>
     </form>

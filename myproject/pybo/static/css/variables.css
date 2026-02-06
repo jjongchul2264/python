@@ -1,0 +1,125 @@
+/* ===========================================
+   CSS Variables - 공통 색상 및 크기 변수
+   =========================================== */
+
+:root {
+    /* =========================================
+       Theme Colors - Point (주요 포인트 색상)
+       변경 시 테마 전체 색상이 변경됩니다
+       ========================================= */
+    --color-point: #ff8c00;
+    --color-point-hover: #e67e00;
+    --color-point-light: #fff3e6;
+    --color-point-gradient-start: #ff8c00;
+    --color-point-gradient-end: #ffa940;
+    --color-point-rgb: 255, 140, 0;
+
+    /* =========================================
+       Semantic Colors - 버튼 및 상태 색상
+       ========================================= */
+    /* Primary (포인트 색상과 동일) */
+    --color-primary: #4CAF50;
+    --color-primary-hover: #45a049;
+    --color-primary-disabled: #cccccc;
+
+    /* Secondary */
+    --color-secondary: #6c757d;
+    --color-secondary-hover: #5a6268;
+
+    /* Danger */
+    --color-danger: #dc3545;
+    --color-danger-hover: #c82333;
+    --color-danger-light: #ffebee;
+
+    /* Success */
+    --color-success: #4CAF50;
+    --color-success-hover: #45a049;
+    --color-success-light: #e8f5e9;
+    --color-success-text: #2e7d32;
+
+    /* Warning */
+    --color-warning: #ffc107;
+    --color-warning-hover: #e0a800;
+    --color-warning-light: #fff8e1;
+
+    /* Info */
+    --color-info: #1976d2;
+    --color-info-hover: #1565c0;
+    --color-info-light: #e3f2fd;
+
+    /* =========================================
+       Status Colors - 상태 표시 색상
+       ========================================= */
+    --color-status-active-bg: #e8f5e9;
+    --color-status-active-text: #2e7d32;
+    --color-status-inactive-bg: #ffebee;
+    --color-status-inactive-text: #c62828;
+    --color-status-user-bg: #e3f2fd;
+    --color-status-user-text: #1976d2;
+    --color-status-dept-bg: #f3e5f5;
+    --color-status-dept-text: #7b1fa2;
+
+    /* =========================================
+       Colors - Table
+       ========================================= */
+    --color-table-header: #6C757D;
+    --color-table-border: #ddd;
+    --color-table-row-even: #f9f9f9;
+    --color-table-row-hover: #f1f1f1;
+    --color-table-row-selected-bg: #D1E7DD;
+    --color-table-row-selected-text: #0F5132;
+
+    /* =========================================
+       Colors - UI Elements
+       ========================================= */
+    --color-border: #ccc;
+    --color-border-light: #e0e0e0;
+    --color-background: #f9f9f9;
+    --color-background-page: #f5f6fa;
+    --color-background-panel: #f8f9fa;
+    --color-background-white: white;
+    --color-text: #333;
+    --color-text-secondary: #555;
+    --color-text-light: #666;
+    --color-text-muted: #888;
+    --color-text-white: white;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-panel: 0 2px 10px rgba(0, 0, 0, 0.1);
+    --shadow-modal: 0 10px 40px rgba(0, 0, 0, 0.2);
+    --shadow-dropdown: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    /* Scrollbar */
+    --scrollbar-width: 6px;
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #ccc;
+    --scrollbar-thumb-hover: #aaa;
+
+    /* Spacing */
+    --spacing-xs: 3px;
+    --spacing-sm: 5px;
+    --spacing-md: 10px;
+    --spacing-lg: 15px;
+    --spacing-xl: 20px;
+
+    /* Sizes */
+    --input-width: 110px;
+    --input-width-sm: 100px;
+    --input-height: 22px;
+    --button-width: 120px;
+    --button-height: 22px;
+    --label-width: 110px;
+
+    /* Border Radius */
+    --radius-sm: 5px;
+    --radius-md: 8px;
+
+    /* Font */
+    --font-size-base: 13px;
+    --font-size-sm: 12px;
+    --font-size-md: 14px;
+    --font-size-lg: 18px;
+}

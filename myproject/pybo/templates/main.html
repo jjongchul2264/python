@@ -8,6 +8,8 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23ff8c00'/%3E%3Ctext x='50' y='75' font-size='70' text-anchor='middle' fill='white' font-family='Arial, sans-serif' font-weight='bold'%3EI%3C/text%3E%3C/svg%3E">
     <!-- FontAwesome 아이콘을 사용하기 위한 링크 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- CSS Variables (테마 색상) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
 </head>
 <body>
@@ -16,11 +18,21 @@
         <i class="fas fa-user-circle user-icon" id="userIcon"></i>
         <div class="dropdown" id="userDropdown">
             <p>{{ username }}님</p>
+            <p>{{ deptname }}</p>
             <p>
-                <span class="label">로그인 시간:</span>
+                <span class="label">로그인 시간</span>
                 <span class="value">{{ login_time }}</span>
             </p>
-            <p>사용 시간: <span id="usageTime">0초</span></p>
+            <p>
+                <span class="label">사용 시간</span>
+                <span class="value" id="usageTime">0초</span>
+            </p>
+            <div class="theme-section">
+                <span class="label">테마 색상</span>
+                <div class="theme-buttons" id="themeButtons">
+                    <!-- 테마 버튼이 JavaScript에서 동적으로 추가됩니다 -->
+                </div>
+            </div>
             <a href="{{ url_for('loginPage.intellics') }}" id="logoutLink">
                 로그아웃
             </a>
@@ -30,34 +42,11 @@
 
     <div class="menu-container">
         <div id="main-menu" class="menu main-menu">
-            <div class="menu-header">
+            <div class="menu-header" id="menu-refresh-btn" title="메뉴 새로고침">
                 <div class="menu-title">Intellics</div>
             </div>
-            <ul class="menu-list">
-                <li>
-                    <a href="#" class="main-menu-item" data-menu="설정">
-                        <i class="fas fa-cogs"></i>
-                        <div class="menu-name">설정</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="main-menu-item" data-menu="기초정보">
-                        <i class="fas fa-file-alt"></i>
-                        <div class="menu-name">기초정보</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="main-menu-item" data-menu="연봉근로계약서">
-                        <i class="fas fa-solid fa-user"></i>
-                        <div class="menu-name">연봉근로<br>계약서</br></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="main-menu-item" data-menu="임직원교육">
-                        <i class="fas fa-school"></i>
-                        <div class="menu-name">임직원<br>교육</br></div>
-                    </a>
-                </li>
+            <ul class="menu-list" id="main-menu-list">
+                <!-- 메뉴가 DB에서 동적으로 로드됩니다 -->
             </ul>
         </div>
         <div id="sub-menu" class="menu sub-menu" style="display: none;">
@@ -68,6 +57,7 @@
         <div class="tabs" id="tab-list"></div>
         <div id="content"></div>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/theme.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

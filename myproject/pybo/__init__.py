@@ -27,6 +27,8 @@ def create_app():
     from pybo.views import salary_deduction
     from pybo.views import salary_deduction_ps
     from pybo.views import comm_vacation_apply_ps
+    from pybo.views import menu_manage
+    from pybo.views import user_manage
 
     app.register_blueprint(login.bp)
     app.register_blueprint(main_views.bp)
@@ -39,5 +41,7 @@ def create_app():
     app.register_blueprint(salary_deduction.bp)
     app.register_blueprint(salary_deduction_ps.bp)
     app.register_blueprint(comm_vacation_apply_ps.bp)
+    app.register_blueprint(menu_manage.bp)
+    app.register_blueprint(user_manage.bp)
 
     return app

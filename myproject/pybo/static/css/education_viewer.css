@@ -1,84 +1,85 @@
+/* Education Viewer CSS */
+@import url('common.css');
+@import url('layout.css');
+
+/* Main Container */
 #container {
     display: flex;
     height: 100vh;
     overflow: hidden;
 }
 
-
-/* 컨테이너를 세로 배치 */
+/* Left Container */
 #left_container {
     display: flex;
-    flex-direction: column; /* 위→아래 배치 */
+    flex-direction: column;
     align-items: center;
     height: 100vh;
     overflow: auto;
     padding: 20px;
 }
 
+/* Signature Area */
 .signatureArea {
     width: 320px;
     display: flex;
-    flex-direction: column; /* 세로 배치 */
+    flex-direction: column;
     align-items: center;
     padding: 20px;
     border-right: 1px solid #ccc;
 }
+
+/* Data Field */
 .data_field {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  padding: 10px;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    gap: 10px;
 }
 
-/* 라벨+입력 필드 한 줄 정렬 */
+/* Field Row */
 .field_row {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    gap: 10px;
 }
 
-/* 라벨과 입력 필드 너비 고정 */
 .field_row label {
-  width: 110px;
-  text-align: right;
-  font-weight: bold;
+    width: 110px;
+    text-align: right;
+    font-weight: bold;
 }
 
 .field_row input {
-  width: 200px;
-  padding: 6px;
-  font-size: 14px;
-  box-sizing: border-box;
+    width: 200px;
+    padding: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-/* 줌 버튼과 페이지 버튼을 가로 정렬 */
-.zoom_controls, .page_controls {
+/* Controls */
+.controls {
     display: flex;
-    flex-direction: row;   /* 가로 정렬 */
-    gap: 10px;             /* 버튼 사이 간격 */
-    justify-content: center; /* 가운데 정렬 */
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.zoom_controls,
+.page_controls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
     margin-bottom: 20px;
 }
 
-.controls {
-    display: flex;
-    flex-direction: column; /* 버튼들을 세로로 쌓음 */
-    gap: 10px;
-    margin-bottom: 15px; /* 버튼과 패드 사이 간격 */
-}
-
-.zoom_controls, .page_controls {
-    display: flex;
-    flex-direction: row; /* 버튼을 가로로 정렬 */
-    gap: 10px;
-    justify-content: center;
-}
-
+/* Canvas */
 .canvas {
     display: flex;
     justify-content: center;
@@ -91,13 +92,13 @@
     height: 150px;
 }
 
-
+/* Viewer */
 #viewer {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;   /* 뷰어 영역 밖으로 나가는 부분 숨김 */
+    overflow: hidden;
     position: relative;
 }
 
@@ -105,23 +106,5 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
-    transition: transform 0.2s ease; /* 확대/축소 부드럽게 */
-}
-
-
-.button-group {
-    display: flex;
-    justify-content: left;
-    margin-bottom: 10px;
-}
-
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 120px;
-    height: 22px;
-    margin-right: 10px;
+    transition: transform 0.2s ease;
 }
